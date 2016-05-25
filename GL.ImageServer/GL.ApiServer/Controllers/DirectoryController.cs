@@ -23,8 +23,7 @@ namespace GL.ApiServer.Controllers
         public string Get(int id)
         {
             return "value";
-        }
-
+        } 
 
         // POST: api/Directory
         public IHttpActionResult Post([FromBody]GL_Directory model)
@@ -34,10 +33,11 @@ namespace GL.ApiServer.Controllers
 
 
         // PUT: api/Directory/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(string id, [FromBody]GL_Directory model)
         {
-
+            return Json(new DirectoryService().Update(id,model));
         }
+
 
         // DELETE: api/Directory/5
         public void Delete(int id)

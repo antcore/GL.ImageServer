@@ -37,7 +37,7 @@ namespace GL.DBOptions.Services
             return msg;
         }
 
-        public HelperResultMsg Update(GL_Directory model)
+        public HelperResultMsg Update(string sid,GL_Directory model)
         {
             HelperResultMsg msg = new HelperResultMsg();
             try
@@ -45,12 +45,13 @@ namespace GL.DBOptions.Services
                 using (var db = new GLDbContext())
                 {
                     db.GL_Directory
-                        .Where(o => o.sId == model.sId)
+                        .Where(o => o.sId == sid)
                         .Update(o => new GL_Directory
                         {
-                            sDirName = model.sDirName,
-                            dUpdateTime = DateTime.Now,
-                            sDirExplain = model.sDirExplain
+                            sDirName = model.sDirName, 
+                            sDirExplain = model.sDirExplain,
+
+                            dUpdateTime = DateTime.Now
                         }); 
                     db.SaveChanges();
 

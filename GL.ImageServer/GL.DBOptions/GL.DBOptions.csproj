@@ -61,6 +61,7 @@
     <Compile Include="Models\GL_Images.cs" />
     <Compile Include="Models\GL_Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\DirectoryService.cs" />
   </ItemGroup>
   <ItemGroup>

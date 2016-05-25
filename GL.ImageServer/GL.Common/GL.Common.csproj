@@ -46,6 +46,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperSession.cs" />
+    <Compile Include="HelperMD5.cs" />
     <Compile Include="HelperAutoGuid.cs" />
     <Compile Include="HelperMemoryCacher.cs" />
     <Compile Include="NLogHelper.cs" />

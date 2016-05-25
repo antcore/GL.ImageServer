@@ -129,6 +129,7 @@
     <Content Include="packages.config" />
     <Content Include="1-db-design\CloudServer.API.pdm" />
     <Content Include="Views\User\Reg.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
