@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.ApiServer", "GL.ApiServer\GL.ApiServer.csproj", "{F3E5D1FE-FE93-44A0-83E8-D8D0AE6F9E9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.DBOptions", "GL.DBOptions\GL.DBOptions.csproj", "{E37B673D-AED3-44BD-8608-4EFE9B65CD27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.Common", "GL.Common\GL.Common.csproj", "{38B426FA-FBCB-443C-9CB7-2CA3B9DAC772}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F3E5D1FE-FE93-44A0-83E8-D8D0AE6F9E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3E5D1FE-FE93-44A0-83E8-D8D0AE6F9E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3E5D1FE-FE93-44A0-83E8-D8D0AE6F9E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E37B673D-AED3-44BD-8608-4EFE9B65CD27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E37B673D-AED3-44BD-8608-4EFE9B65CD27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E37B673D-AED3-44BD-8608-4EFE9B65CD27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E37B673D-AED3-44BD-8608-4EFE9B65CD27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38B426FA-FBCB-443C-9CB7-2CA3B9DAC772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B426FA-FBCB-443C-9CB7-2CA3B9DAC772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B426FA-FBCB-443C-9CB7-2CA3B9DAC772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B426FA-FBCB-443C-9CB7-2CA3B9DAC772}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
