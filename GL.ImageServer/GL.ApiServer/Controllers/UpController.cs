@@ -1,5 +1,6 @@
 ﻿using GL.Common;
 using GL.DBOptions.Models;
+using GL.DBOptions.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,7 @@ using System.Web.Http;
 
 namespace CloudServer.API.Controllers
 {
-    public class FileResultInfo
-    {
-        /// <summary>
-        /// 访问文件唯一标识
-        /// </summary>
-        public string guid { get; set; }
-        /// 获取文件
-        /// </summary>
-        public string getFile { get; set; }
 
-    }
 
     /// <summary>
     /// 文件上传 处理 API
@@ -45,17 +36,16 @@ namespace CloudServer.API.Controllers
             //文件信息
             GL_Images img = null;
             List<GL_Images> listFiles = new List<GL_Images>();
-            //返回客户端信息
-            FileResultInfo resultModel = null;
-            List<FileResultInfo> returnInfo = new List<FileResultInfo>();
 
+            //返回客户端信息 
+            List<string> resultString = new List<string>();
+            HelperResultMsg result = new HelperResultMsg();
             string filenames;
-            string contentType;
+
             Stream ms;
             byte[] data;
             FileInfo info = null;
 
-            ResultMessage resultInfo = new ResultMessage();
             try
             {
                 foreach (var item in provider.Contents)
@@ -63,7 +53,7 @@ namespace CloudServer.API.Controllers
                     if (item.Headers.ContentDisposition.FileName != null)
                     {
                         filenames = (item.Headers.ContentDisposition.FileName).Replace("\"", "");
-                        contentType = MimeMapping.GetMimeMapping(filenames);
+
                         //Strem
                         ms = item.ReadAsStreamAsync().Result;
 
@@ -75,7 +65,7 @@ namespace CloudServer.API.Controllers
 
                             //FileInfo
                             info = new FileInfo(item.Headers.ContentDisposition.FileName.Replace("\"", ""));
-                            
+
                             //Create
                             img = new GL_Images
                             {
@@ -83,90 +73,66 @@ namespace CloudServer.API.Controllers
                                 sFileName = info.Name.Substring(0, info.Name.LastIndexOf(".")),
                                 sFileSiffix = info.Extension.Substring(1).ToLower(),
                                 iFileSize = ms.Length, //文件大小
-                                iSource = int.Parse(source), //文件来源
-
-                                 sFilePath =""
-
-
-                                FilePath =
-                                    string.Format(@"/{0}/{1}/{2}/", ServerSettingInfo.ServerPath,
-                                        DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString()),
-                                DirId = dirId,
-                                Source =
-                                CreationTime = DateTime.Now,
-                                IPUrl = ServerSettingInfo.ServerURL
-                                //UserKey = key
+                                iSource = int.Parse(source), //文件来源 
+                                //
+                                sDirId = dirId,
+                                //sUriDomain = ServerSetting.ServerURL, 
+                                //sUriPath = string.Empty,
+                                //sFilePath = string.Empty,
+                                dCreateTime = DateTime.Now
                             };
+                            // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹 
+                            img.sFilePath = string.Format(@"/{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
                             //Write File
 
-                            // 判断 路径存在?
-                            if (!Directory.Exists(ServerSettingInfo.SaveDisc + fileModel.FilePath))
+                            //判断文件路径 
+                            if (!Directory.Exists(img.sFilePath))
                             {
-                                Directory.CreateDirectory(ServerSettingInfo.SaveDisc + fileModel.FilePath);
+                                Directory.CreateDirectory(img.sFilePath);
                             }
-                            //补全 文件路径
-                            fileModel.FilePath = string.Format(@"{0}{1}.{2}", fileModel.FilePath, fileModel.GuidValue, fileModel.FileSiffix);
+                            //文件存储文件路径
+                            img.sFilePath = string.Format(@"{0}{1}.{2}", img.sFilePath, img.sId, img.sFileSiffix);
                             //写入磁盘
-                            File.WriteAllBytes(ServerSettingInfo.SaveDisc + fileModel.FilePath, data);
+                            File.WriteAllBytes(img.sFilePath, data);
 
-                            #region 上传文件 是 图片
+                            //获取文件路径--备用
+                            img.sUriDomain = ServerSetting.ServerURL;
+                            img.sUriPath = string.Format(@"/api/down/{0}.{1}", img.sId, img.sFileSiffix);
 
-                            if (contentType.IndexOf("image") != -1)
-                            {
-                                fileModel.FileUrl = string.Format(@"/api/down/img/{0}", fileModel.GuidValue);
-                            }
-                            else
-                            {
-                                //获取文件路径 --备用
-                                fileModel.FileUrl = string.Format(@"/api/down/file/{0}", fileModel.GuidValue);
-                            }
+                            #region 图片包含 信息读取
 
-                            #endregion 上传文件 是 图片
+                            #endregion
 
-                            listFiles.Add(fileModel);
+                            listFiles.Add(img);
 
-                            //获取文件请求路径  并需要返回至客户端
-                            resultModel = new FileResultInfo
-                            {
-                                guid = fileModel.GuidValue,
-                                //getPath = string.Format(@"{0}{1}", fileModel.IPUrl, fileModel.ImgUrl),
-                                getFile = string.Format(@"{0}{1}.{2}", fileModel.IPUrl, fileModel.FileUrl, fileModel.FileSiffix)
-                            };
-
-                            returnInfo.Add(resultModel);
+                            //获取文件请求路径 
+                            resultString.Add(string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath));
                         }
                     }
                 }
-                if (returnInfo.Count > 0)
-                {          //保存至数据库--
-                    FileService.Instance.SaveModel(listFiles);
-
-                    resultInfo.success = true;
-                    resultInfo.message = returnInfo;
+                if (listFiles.Count > 0)
+                {
+                    //保存至数据库
+                    var msg = new ImageService().InsertAll(listFiles);
+                    if (msg.success)
+                    {
+                        result.success = true;
+                        result.message = "上传成功";
+                        result.resultInfo = resultString;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                WriteLog.Instance.Wirtelog(ex);
-                resultInfo.message = returnInfo;
+                HelperNLog.Default.Error("[图片服务器]上传异常", ex);
+                result.message = "上传出现异常";
             }
-
             return new HttpResponseMessage
             {
-                Content = new StringContent(JsonConvert.SerializeObject(resultInfo), System.Text.Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonConvert.SerializeObject(result), System.Text.Encoding.UTF8, "application/json")
             };
         }
 
-        private class ResultMessage
-        {
-            public bool success { get; set; }
-            public object message { get; set; }
 
-            public ResultMessage()
-            {
-                success = false;
-                message = "上传失败！";
-            }
-        }
     }
 }

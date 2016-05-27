@@ -46,7 +46,7 @@ namespace GL.DBOptions.Services
             }
             catch (Exception ex)
             {
-                NLogHelper.Default.Error(ex.ToString());
+                HelperNLog.Default.Error(ex.ToString());
                 msg.message = "error! once again";
             }
             return msg;
@@ -94,7 +94,7 @@ namespace GL.DBOptions.Services
             }
             catch (Exception ex)
             {
-                NLogHelper.Default.Error(ex.ToString());
+                HelperNLog.Default.Error(ex.ToString());
                 msg.message = "insert error";
             }
             return msg;
@@ -125,7 +125,7 @@ namespace GL.DBOptions.Services
             }
             catch (Exception ex)
             {
-                NLogHelper.Default.Error(ex.ToString());
+                HelperNLog.Default.Error(ex.ToString());
                 msg.message = "update error";
             }
             return msg;
@@ -156,7 +156,7 @@ namespace GL.DBOptions.Services
             }
             catch (Exception ex)
             {
-                NLogHelper.Default.Error(ex.ToString());
+                HelperNLog.Default.Error(ex.ToString());
                 msg.message = "update error";
             }
             return msg;
@@ -186,7 +186,7 @@ namespace GL.DBOptions.Services
             }
             catch (Exception ex)
             {
-                NLogHelper.Default.Error(ex.ToString());
+                HelperNLog.Default.Error(ex.ToString());
                 msg.message = "update error";
             }
             return msg;

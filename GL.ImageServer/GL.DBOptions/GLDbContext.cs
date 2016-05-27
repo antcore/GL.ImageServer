@@ -106,7 +106,7 @@ namespace GL.DBOptions
                 .IsUnicode(false);
 
             modelBuilder.Entity<GL_Images>()
-                .Property(e => e.sUriPathName)
+                .Property(e => e.sUriPath)
                 .IsUnicode(false);
 
             modelBuilder.Entity<GL_Images>()

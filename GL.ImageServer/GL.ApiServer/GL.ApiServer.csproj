@@ -152,6 +152,10 @@
       <Project>{e37b673d-aed3-44bd-8608-4efe9b65cd27}</Project>
       <Name>GL.DBOptions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GL.ImageOptions\GL.ImageOptions.csproj">
+      <Project>{54a9655a-67ba-4243-a786-0fd80ddf8c98}</Project>
+      <Name>GL.ImageOptions</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

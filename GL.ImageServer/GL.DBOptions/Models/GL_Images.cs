@@ -22,7 +22,7 @@ namespace GL.DBOptions.Models
 
         [Required]
         [StringLength(100)]
-        public string sUriPathName { get; set; }
+        public string sUriPath { get; set; }
 
         public int iSource { get; set; }
 
