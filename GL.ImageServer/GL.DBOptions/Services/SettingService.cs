@@ -1,15 +1,9 @@
-﻿using EntityFramework.Extensions;
-using GL.Common;
-using GL.DBOptions.Models;
-using System;
-using System.Collections.Generic;
+﻿using GL.DBOptions.Models;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GL.DBOptions.Services
 {
-    public class Setting
+    public class SettingService
     {
         public GL_CloudSetting GetInit()
         {
@@ -17,13 +11,9 @@ namespace GL.DBOptions.Services
             {
                 return new GL_CloudSetting
                 {
-                     
                 };
             }
         }
-
-
-
 
         public GL_CloudSetting GetDefault(string model)
         {
@@ -32,16 +22,13 @@ namespace GL.DBOptions.Services
                 return db.GL_CloudSetting.FirstOrDefault(o => o.bIsDefault);
             }
         }
+
         public GL_CloudSetting GetByServerCode(string ServerCode)
         {
             using (var db = new GLDbContext())
             {
-                return db.GL_CloudSetting.FirstOrDefault(o => o.sServerCode== ServerCode);
+                return db.GL_CloudSetting.FirstOrDefault(o => o.sServerCode == ServerCode);
             }
         }
-
-
     }
-
-
 }

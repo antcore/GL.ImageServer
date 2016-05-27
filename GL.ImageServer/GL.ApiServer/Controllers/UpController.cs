@@ -7,13 +7,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace CloudServer.API.Controllers
 {
-
-
     /// <summary>
     /// 文件上传 处理 API
     /// </summary>
@@ -37,7 +34,7 @@ namespace CloudServer.API.Controllers
             GL_Images img = null;
             List<GL_Images> listFiles = new List<GL_Images>();
 
-            //返回客户端信息 
+            //返回客户端信息
             List<string> resultString = new List<string>();
             HelperResultMsg result = new HelperResultMsg();
             string filenames;
@@ -73,19 +70,19 @@ namespace CloudServer.API.Controllers
                                 sFileName = info.Name.Substring(0, info.Name.LastIndexOf(".")),
                                 sFileSiffix = info.Extension.Substring(1).ToLower(),
                                 iFileSize = ms.Length, //文件大小
-                                iSource = int.Parse(source), //文件来源 
+                                iSource = int.Parse(source), //文件来源
                                 //
                                 sDirId = dirId,
-                                //sUriDomain = ServerSetting.ServerURL, 
+                                //sUriDomain = ServerSetting.sServerUriDomain,
                                 //sUriPath = string.Empty,
                                 //sFilePath = string.Empty,
                                 dCreateTime = DateTime.Now
                             };
-                            // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹 
+                            // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
                             img.sFilePath = string.Format(@"/{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
                             //Write File
 
-                            //判断文件路径 
+                            //判断文件路径
                             if (!Directory.Exists(img.sFilePath))
                             {
                                 Directory.CreateDirectory(img.sFilePath);
@@ -96,16 +93,12 @@ namespace CloudServer.API.Controllers
                             File.WriteAllBytes(img.sFilePath, data);
 
                             //获取文件路径--备用
-                            img.sUriDomain = ServerSetting.ServerURL;
+                            img.sUriDomain = ServerSetting.sServerUriDomain;
                             img.sUriPath = string.Format(@"/api/down/{0}.{1}", img.sId, img.sFileSiffix);
-
-                            #region 图片包含 信息读取
-
-                            #endregion
 
                             listFiles.Add(img);
 
-                            //获取文件请求路径 
+                            //获取文件请求路径
                             resultString.Add(string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath));
                         }
                     }
@@ -132,7 +125,5 @@ namespace CloudServer.API.Controllers
                 Content = new StringContent(JsonConvert.SerializeObject(result), System.Text.Encoding.UTF8, "application/json")
             };
         }
-
-
     }
 }
