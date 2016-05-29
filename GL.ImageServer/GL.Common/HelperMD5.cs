@@ -21,7 +21,7 @@ namespace GL.Common
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             string t2 = BitConverter.ToString(md5.ComputeHash(UTF8Encoding.Default.GetBytes(str)), 4, 8);
             t2 = t2.Replace("-", "");
-            return t2.Substring(0, 8);
+            return t2;
         }
 
         /// <summary>

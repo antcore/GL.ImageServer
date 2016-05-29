@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace CloudServer.API.Controllers
+namespace GL.ApiServer.Controllers
 {
     public class DownController : ApiController
     {
@@ -71,27 +71,13 @@ namespace CloudServer.API.Controllers
                 {
                     // 取默认值大小 w = 0, h = 0;
                     HelperNLog.Default.Error("[图片服务器]客户端请求图片参数设置宽高错误", ex);
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest);
                 }
 
                 #endregion 获取请求参数
 
                 return DownImageService.Instance.DownImage(guid, water, w, h);
             });
-        }
-
-        /// <summary>
-        /// 获取图片外 文件处理
-        /// </summary>
-        /// <param name="fileInfo">guidValue.扩展名 文件GUID.扩展名称  </param>
-        [Route("api/down/file/{fileInfo}")]
-        public async Task<HttpResponseMessage> GetFile(string fileInfo)
-        {
-            return await Task.Run(() =>
-            {
-                string[] param = fileInfo.Split('.');
-                //暂不支持 其他文件处理
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
-            });
-        }
+        } 
     }
 }

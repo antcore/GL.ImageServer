@@ -111,12 +111,47 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1-db-design\CloudServer.API.pdb" />
+    <Content Include="Content\AmazeUI-2.7.0\css\admin.css" />
+    <Content Include="Content\AmazeUI-2.7.0\css\amazeui.css" />
+    <Content Include="Content\AmazeUI-2.7.0\css\amazeui.flat.css" />
+    <Content Include="Content\AmazeUI-2.7.0\css\amazeui.flat.min.css" />
+    <Content Include="Content\AmazeUI-2.7.0\css\amazeui.min.css" />
+    <Content Include="Content\AmazeUI-2.7.0\css\app.css" />
+    <Content Include="Content\AmazeUI-2.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\AmazeUI-2.7.0\i\app-icon72x72%402x.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\admin-chrome.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\admin-firefox.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\admin-ie.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\admin-opera.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\admin-safari.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\adminPage.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\blogPage.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\landing.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\landingPage.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\loginPage.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\examples\sidebarPage.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\favicon.png" />
+    <Content Include="Content\AmazeUI-2.7.0\i\startup-640x1096.png" />
+    <Content Include="Content\AmazeUI-2.7.0\js\amazeui.ie8polyfill.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\amazeui.ie8polyfill.min.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\amazeui.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\amazeui.min.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\amazeui.widgets.helper.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\amazeui.widgets.helper.min.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\app.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\handlebars.min.js" />
+    <Content Include="Content\AmazeUI-2.7.0\js\jquery.min.js" />
+    <Content Include="Content\InitImages\1-notfind.jpg" />
+    <Content Include="Content\InitImages\1-water.png" />
+    <Content Include="Content\vue\vue.js" />
+    <Content Include="Content\vue\vue.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\DownController.cs" />
     <Compile Include="Controllers\UpController.cs" />
     <Compile Include="Controllers\DirectoryController.cs" />
@@ -132,6 +167,13 @@
     <Content Include="1-db-design\CloudServer.API.pdm" />
     <Content Include="Views\User\Reg.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Content\AmazeUI-2.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\AmazeUI-2.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\AmazeUI-2.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\AmazeUI-2.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\AmazeUI-2.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\App\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

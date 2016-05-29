@@ -59,33 +59,40 @@ namespace GL.DBOptions.Services
             {
                 using (var db = new GLDbContext())
                 {
+                    if (db.GL_Member.Any(o => o.sUserEmail == model.sUserEmail))
+                    {
+                        msg.message = "改email地址已被注册了，换一个试试吧";
+                        return msg;
+                    }
                     //add user
                     model.sId = HelperAutoGuid.Instance.GetGuidString();
                     model.dCreateTime = DateTime.Now;
                     model.sUserPwd = HelperMD5.MD532(model.sUserPwd);
                     db.GL_Member.Add(model);
                     //add application
-                    var app = new GL_APP_Authorized
-                    {
-                        sId = HelperAutoGuid.Instance.GetGuidString(),
-                        sMemberId = model.sId,
-                        sAppKey = "",
-                        sAppSecret = "",
-                        dCreateTime = DateTime.Now
-                    };
-                    db.GL_APP_Authorized.Add(app);
-                    //add default directory
-                    var directory = new GL_Directory
-                    {
-                        sId = HelperAutoGuid.Instance.GetGuidString(),
-                        sPId = "",
-                        sAppId = app.sId,
-                        sDirName = "all",
-                        sDirExplain = "",
-                        bIsDefault = true,
-                        dCreateTime = DateTime.Now
-                    };
-                    db.GL_Directory.Add(directory);
+                    //var app = new GL_APP_Authorized
+                    //{
+                    //    sId = HelperAutoGuid.Instance.GetGuidString(),
+                    //    sMemberId = model.sId,
+                    //    sAppKey = "",
+                    //    sAppSecret = "",
+                    //    dCreateTime = DateTime.Now
+                    //};
+                    //db.GL_APP_Authorized.Add(app);
+                    ////add default directory
+                    //var directory = new GL_Directory
+                    //{
+                    //    sId = HelperAutoGuid.Instance.GetGuidString(),
+                    //    sPId = "",
+                    //    sAppId = app.sId,
+                    //    sDirName = "all",
+                    //    sDirExplain = "",
+                    //    bIsDefault = true,
+                    //    dCreateTime = DateTime.Now
+                    //};
+                    //db.GL_Directory.Add(directory);
+
+
                     db.SaveChanges();
 
                     msg.success = true;
@@ -137,12 +144,12 @@ namespace GL.DBOptions.Services
             try
             {
                 using (var db = new GLDbContext())
-                { 
+                {
                     db.GL_Member
                         .Where(o => o.sId == sid)
                         .Update(o => new GL_Member
                         {
-                           
+
                             //sUserName = model.sUserName,
                             //sUserPhone = model.sUserPhone,  
                             dUpdateTime = DateTime.Now
@@ -172,7 +179,7 @@ namespace GL.DBOptions.Services
                     db.GL_Member
                         .Where(o => o.sId == sid)
                         .Update(o => new GL_Member
-                        { 
+                        {
                             //sUserName = model.sUserName,
                             //sUserPhone = model.sUserPhone,  
                             dUpdateTime = DateTime.Now

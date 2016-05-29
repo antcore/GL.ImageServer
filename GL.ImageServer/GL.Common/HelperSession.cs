@@ -78,7 +78,7 @@ namespace GL.Common
         {
             Set("GL_IMAGESER_MEMBERINFO", Value);
         }
-        public MemberSessionModel GetMemberInfo(object Value)
+        public MemberSessionModel GetMemberInfo()
         {
             var obj = Get("GL_IMAGESER_MEMBERINFO");
             return obj == null ? null : obj as MemberSessionModel;

@@ -1,0 +1,32 @@
+日期     种类    信息    来源
+11:32:59 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+12:08:18 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+12:24:13 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+12:46:16 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+12:52:36 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+13:22:07 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+13:23:24 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+13:31:32 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+13:31:46 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+13:53:44 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+13:57:14 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+13:59:12 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+14:20:42 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+-------------------------------
+14:32:54 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+14:34:46 Error System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 GL.DBOptions.Services.AppService.Insert(GL_APP_Authorized model) 位置 E:\code\csharpProgram\GU_LING_KE_JI\GL.ImageServer\GL.ImageServer\GL.DBOptions\Services\AppService.cs:行号 53 GL.Common.HelperNLog.Error
+14:35:43 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+14:40:09 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error
+14:42:42 Error 读取服务器-配置错误2016/5/29 GL.Common.HelperNLog.Error

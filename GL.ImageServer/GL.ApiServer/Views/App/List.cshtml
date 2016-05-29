@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "应用列表";
+}
+<div class="admin-content">
+    <div class="admin-content-body">
+        <div class="am-cf am-padding am-padding-bottom-0">
+            <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">@ViewBag.memberName</strong> / <small>应用列表</small></div>
+        </div>
+        <hr>
+        <div class="am-g">
+            <div class="am-u-sm-12 am-u-md-6">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <button type="button" class="am-btn am-btn-default" id="btn-add-app"><span class="am-icon-plus"></span> 新增</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <table class="am-table am-table-striped am-table-hover table-main" id="user-apps">
+                    <thead>
+                        <tr>
+                            <th class="table-check"><input type="checkbox"></th>
+                            <th class="table-title">应用名称</th>
+                            <th class="table-title">AppKey</th>
+                            <th class="table-title">AppSecret</th>
+                            <th class="table-type">应用状态</th>
+                            <th class="table-date">创建时间</th>
+                            <th class="table-date">修改时间</th>
+                        </tr>
+                    </thead>
+                    <tbody v-if="haveData">
+                        <tr v-for="item in items">
+                            <td><input type="checkbox" data-id="{{item.sId}}"></td>
+                            <td>{{item.sAppName}}</td>
+                            <td>{{item.sAppKey}}</td>
+                            <td>{{item.sAppSecret}}</td>
+                            <td>{{item.bState}}</td>
+                            <td>{{item.dCreateTime}}</td>
+                            <td>{{item.dUpdateTime}}</td>
+                        </tr>
+                    </tbody>
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="8">没有创建任何应用</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">Amaze UI</div>
+        <div class="am-modal-bd">
+            请输入应用名称：
+            <input type="text" class="am-modal-prompt-input">
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>算 了</span>
+            <span class="am-modal-btn" data-am-modal-confirm>创 建</span>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="@ViewBag.Apps" id="user-val-apps" />
+<script src="/Content/vue/vue.min.js"></script>
+<script>
+    $(function () {
+        var userValApps = $('#user-val-apps').val();
+        if (userValApps && userValApps.length >= 2) {
+            userValApps = $.parseJSON(userValApps);
+            new Vue({
+                el: '#user-apps',
+                data: {
+                    haveData: (userValApps.length > 0),
+                    items: userValApps
+                }
+            })
+        }
+
+        $('#btn-add-app').on('click', function () {
+            $('#my-prompt').modal({
+                relatedTarget: this,
+                onConfirm: function (e) {
+                    $.post('/App/Create', { sAppName: e.data }, function (res) {
+                        gl.alert('提示', res.message);
+                        if (res.success) {
+                            location.reload();
+                        }
+                    }, 'json');
+                },
+                onCancel: function (e) {
+                }
+            });
+        });
+    });
+</script>

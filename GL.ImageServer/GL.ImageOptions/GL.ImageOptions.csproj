@@ -41,11 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Image\DOWNFILE_INIT.cs" />
+    <Compile Include="DOWNFILE_INIT.cs" />
     <Compile Include="DownImageService.cs" />
-    <Compile Include="Image\GifOption.cs" />
-    <Compile Include="Image\HashUtils.cs" />
-    <Compile Include="Image\ImageUtils.cs" />
+    <Compile Include="GifOption.cs" />
+    <Compile Include="HashUtils.cs" />
+    <Compile Include="ImageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadFile.cs" />
   </ItemGroup>

@@ -1,17 +1,76 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "登录";
 }
+<style>
+    .header {
+        text-align: center;
+    }
 
-<!DOCTYPE html>
+        .header h1 {
+            font-size: 200%;
+            color: #333;
+            margin-top: 30px;
+        }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-</head>
-<body>
-    <div> 
+        .header p {
+            font-size: 14px;
+        }
+</style>
+<div class="header">
+    <div class="am-g">
+        <h1>图片服务器</h1>
     </div>
-</body>
-</html>
+    <hr />
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h3>登录</h3>
+        <hr />
+        <form method="post" class="am-form" id="from-user-login">
+            <div class="am-form-group">
+                <label>邮箱：</label>
+                <input type="email" name="sUserEmail" data-validation-message="输入地球上的电子邮箱" placeholder="请输入邮箱" required />
+            </div> 
+            <div class="am-form-group">
+                <label>确认密码：</label>
+                <input type="password" name="sUserPwd" minlength="6" maxlength="20" placeholder="请输入与密码一致" required />
+            </div>
+            <div class="am-cf">
+                <input type="button" id="btn-user-login"value="登 录" class="am-btn am-btn-primary am-btn-xl am-fl">
+                <a href="/User/Reg" class="am-btn am-btn-link am-fr">去注册</a>
+            </div>
+        </form>
+    </div>
+</div> 
+<script>
+    $(function () {
+        var formUserLogin =$('#from-user-login');
+        formUserLogin.validator({
+            onValid: function (validity) {
+                $(validity.field).closest('.am-form-group').find('.am-alert').hide();
+            },
+            onInValid: function (validity) {
+                var $field = $(validity.field);
+                var $group = $field.closest('.am-form-group');
+                var $alert = $group.find('.am-alert');
+                // 使用自定义的提示信息 或 插件内置的提示信息
+                var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+                if (!$alert.length) {
+                    $alert = $('<div class="am-alert am-alert-danger"></div>').hide().
+                      appendTo($group);
+                }
+                $alert.html(msg).show();
+            }
+        });
+        $('#btn-user-login').click(function () {
+            if (!formUserLogin.validator('isFormValid')) { return; }
+            $.post('/User/SubmitLogin', $(formUserLogin).serialize(), function (res) {
+                gl.alert('提示', res.message);
+                if (res.success) { 
+                    location.href = '/App/List';
+                }
+            }, 'json');
+        });
+    });
+</script>

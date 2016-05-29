@@ -174,7 +174,6 @@ namespace GL.ImageOptions
                 #endregion 加水印
 
                 bytes = ImageUtils.ToBytes(bitmap, model.sFileSiffix);
-
                 // Get Tag
                 string eTag = string.Format("\"{0}\"", HashUtils.GetMD5Hash(bytes));
 
@@ -195,7 +194,6 @@ namespace GL.ImageOptions
                 result.Content.Headers.LastModified = new DateTimeOffset(DateTime.Now);
                 result.Headers.CacheControl = new CacheControlHeaderValue() { Public = true, MaxAge = TimeSpan.FromHours(1) };
                 result.Headers.ETag = new EntityTagHeaderValue(eTag);
-
                 return result;
             }
             catch (Exception ex)
@@ -219,10 +217,6 @@ namespace GL.ImageOptions
         /// <returns></returns>
         private Bitmap AppendWaterToImage(string water, Bitmap initImage)
         {
-            string watermarkText = "这里是水印！";
-            string watermarkImage = System.AppDomain.CurrentDomain.BaseDirectory.ToString()
-                + "\\Content\\CloudFile\\waterImage.png";
-
             //缩略图宽、高计算
             double newWidth = initImage.Width;
             double newHeight = initImage.Height;
@@ -241,12 +235,17 @@ namespace GL.ImageOptions
                 //置背景色
                 newG.Clear(Color.White);
                 //画图
-                newG.DrawImage(initImage, new Rectangle(0, 0, newImage.Width, newImage.Height),
-                    new Rectangle(0, 0, initImage.Width, initImage.Height), GraphicsUnit.Pixel);
+                newG.DrawImage(
+                    initImage,
+                    new Rectangle(0, 0, newImage.Width, newImage.Height),
+                    new Rectangle(0, 0, initImage.Width, initImage.Height),
+                    GraphicsUnit.Pixel);
 
                 //文字水印
-                if (water.Equals("t") && !string.IsNullOrEmpty(watermarkText))
+                if (water.Equals("t"))
                 {
+                    string watermarkText = "这里是水印！";
+
                     using (Graphics gWater = Graphics.FromImage(newImage))
                     {
                         Font fontWater = new Font("宋体", 10);
@@ -257,15 +256,21 @@ namespace GL.ImageOptions
                     return newImage;
                 }
                 //透明图片水印
-                if (water.Equals("i") && !string.IsNullOrEmpty(watermarkImage) && File.Exists(watermarkImage))
+                if (water.Equals("i"))
                 {
-                    using (Image wrImage = Image.FromFile(watermarkImage))
+                    string waterImgPath = AppDomain.CurrentDomain.BaseDirectory + "\\Content\\InitImages\\1-water.png";
+
+                    if (string.IsNullOrEmpty(waterImgPath) || !File.Exists(waterImgPath))
+                    {
+                        return initImage;
+                    }
+
+                    using (Image wrImage = Image.FromFile(waterImgPath))
                     {
                         //水印绘制条件：原始图片宽高均大于或等于水印图片
                         if (newImage.Width >= wrImage.Width && newImage.Height >= wrImage.Height)
                         {
                             Graphics gWater = Graphics.FromImage(newImage);
-
                             //透明属性
                             ImageAttributes imgAttributes = new ImageAttributes();
                             ColorMap colorMap = new ColorMap();
@@ -273,7 +278,6 @@ namespace GL.ImageOptions
                             colorMap.NewColor = Color.FromArgb(0, 0, 0, 0);
                             ColorMap[] remapTable = { colorMap };
                             imgAttributes.SetRemapTable(remapTable, ColorAdjustType.Bitmap);
-
                             float[][] colorMatrixElements = {
                                    new float[] {1.0f,  0.0f,  0.0f,  0.0f, 0.0f},
                                    new float[] {0.0f,  1.0f,  0.0f,  0.0f, 0.0f},
@@ -281,7 +285,6 @@ namespace GL.ImageOptions
                                    new float[] {0.0f,  0.0f,  0.0f,  0.5f, 0.0f},//透明度:0.5
                                    new float[] {0.0f,  0.0f,  0.0f,  0.0f, 1.0f}
                                 };
-
                             ColorMatrix wmColorMatrix = new ColorMatrix(colorMatrixElements);
                             imgAttributes.SetColorMatrix(wmColorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
                             gWater.DrawImage(wrImage, new Rectangle(newImage.Width - wrImage.Width, newImage.Height - wrImage.Height, wrImage.Width, wrImage.Height), 0, 0, wrImage.Width, wrImage.Height, GraphicsUnit.Pixel, imgAttributes);
@@ -311,12 +314,16 @@ namespace GL.ImageOptions
             try
             {
                 string FileSiffix = "jpg";
-                string FileName = "noimg";
+                string FileName = "notfind";
+
+                string notfind = AppDomain.CurrentDomain.BaseDirectory + "\\Content\\InitImages\\1-notfind.jpg";
                 // 打开图片
-                Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory.ToString()
-                    + "\\Content\\CloudFile\\noimg.jpg");
+                Bitmap bitmap = new Bitmap(notfind);
 
                 byte[] bytes = ImageUtils.ToBytes(bitmap, FileSiffix);
+
+                // Get Tag
+                string eTag = string.Format("\"{0}\"", HashUtils.GetMD5Hash(bytes));
 
                 ContentDispositionHeaderValue disposition = new ContentDispositionHeaderValue(DOWNFILE_INIT.GetDisposition(FileSiffix));
                 disposition.FileName = string.Format("{0}.{1}", FileName, FileSiffix);
@@ -333,7 +340,7 @@ namespace GL.ImageOptions
                 result.Content.Headers.Expires = new DateTimeOffset(DateTime.Now).AddHours(1);
                 result.Content.Headers.LastModified = new DateTimeOffset(DateTime.Now);
                 result.Headers.CacheControl = new CacheControlHeaderValue() { Public = true, MaxAge = TimeSpan.FromHours(1) };
-                //result.Headers.ETag = new EntityTagHeaderValue(eTag);
+                result.Headers.ETag = new EntityTagHeaderValue(eTag);
             }
             catch (Exception ex)
             {

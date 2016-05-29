@@ -17,6 +17,10 @@ namespace GL.DBOptions.Models
         public string sMemberId { get; set; }
 
         [Required]
+        [StringLength(50)]
+        public string sAppName { get; set; }
+         
+        [Required]
         [StringLength(32)]
         public string sAppKey { get; set; }
 

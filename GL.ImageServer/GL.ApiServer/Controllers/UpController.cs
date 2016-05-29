@@ -9,23 +9,24 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace CloudServer.API.Controllers
+namespace GL.ApiServer.Controllers
 {
     /// <summary>
     /// 文件上传 处理 API
     /// </summary>
     public class UpController : ApiController
-    {
+    { 
         /// <summary>
         /// 文件上传处理接口 -- 接收表单[multipart/form-data]提交文件 处理接口
         /// </summary>
+        /// <param name="dirId">存储目录</param> 
         /// <param name="key">访问授权 KEY</param>
-        /// <param name="source">访问来源 </param>
-        /// <param name="dirId">存储 目录</param>
-        /// <returns>用户访问 获取文件路径 等</returns>
-        [Route("api/up/{key}/{Source}/{dirId}")]
-        public async Task<HttpResponseMessage> Post(string key, string source, string dirId)
+        /// <returns>获取图片访问路径</returns>
+        [Route("api/up/{key}/{dirId}")]
+        public async Task<HttpResponseMessage> Post(string dirId,string key)
         {
+            HelperResultMsg result = new HelperResultMsg(); 
+
             // multipart/form-data
             var provider = new MultipartMemoryStreamProvider();
             await Request.Content.ReadAsMultipartAsync(provider);
@@ -35,8 +36,7 @@ namespace CloudServer.API.Controllers
             List<GL_Images> listFiles = new List<GL_Images>();
 
             //返回客户端信息
-            List<string> resultString = new List<string>();
-            HelperResultMsg result = new HelperResultMsg();
+            List<string> resultString = new List<string>(); 
             string filenames;
 
             Stream ms;
@@ -70,7 +70,7 @@ namespace CloudServer.API.Controllers
                                 sFileName = info.Name.Substring(0, info.Name.LastIndexOf(".")),
                                 sFileSiffix = info.Extension.Substring(1).ToLower(),
                                 iFileSize = ms.Length, //文件大小
-                                iSource = int.Parse(source), //文件来源
+                                iSource = 1, //文件来源
                                 //
                                 sDirId = dirId,
                                 //sUriDomain = ServerSetting.sServerUriDomain,

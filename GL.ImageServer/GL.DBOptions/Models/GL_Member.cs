@@ -11,15 +11,12 @@ namespace GL.DBOptions.Models
         [Key]
         [StringLength(32)]
         public string sId { get; set; }
-
-        [Required]
-        [StringLength(20)]
+         
         public string sUserName { get; set; }
 
         [StringLength(30)]
         public string sUserEmail { get; set; }
-
-        [StringLength(11)]
+         
         public string sUserPhone { get; set; }
 
         [Required]

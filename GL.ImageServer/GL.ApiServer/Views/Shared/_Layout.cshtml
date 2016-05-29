@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="/Content/AmazeUI-2.7.0/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Content/AmazeUI-2.7.0/css/app.css">
+</head>
+<body>
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="/Content/AmazeUI-2.7.0/js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+    <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+    <script src="/Content/AmazeUI-2.7.0/js/amazeui.ie8polyfill.min.js"></script>
+    <![endif]-->
+    <script src="/Content/AmazeUI-2.7.0/js/amazeui.min.js"></script>
+    <script>
+        window.gl = {};
+        $(function () {
+            gl.alert = function (title, content, time) {
+                var $gl_modal = $('#gl-main-alert-model');
+                $gl_modal.find('#gl-main-alert-title').html(title);
+                $gl_modal.find('#gl-main-alert-content').html(content);
+                $gl_modal.modal();
+                (time) && setTimeout(function () {$gl_modal.modal('close');}, time); 
+            }
+        });
+    </script>
+    @RenderBody()
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="gl-main-alert-model">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                <span id="gl-main-alert-title"></span>
+                <a href="javascript:void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd" id="gl-main-alert-content"></div>
+        </div>
+    </div> 
+</body>
+</html> 
