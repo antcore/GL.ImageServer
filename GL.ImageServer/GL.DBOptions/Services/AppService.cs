@@ -19,17 +19,30 @@ namespace GL.DBOptions.Services
             {
                 return db.GL_APP_Authorized
                         .Where(o => o.sMemberId == memberId && !o.bIsDelete)
-                        .Select(o=>new {
+                        .Select(o => new
+                        {
                             o.sId,
                             o.sAppName,
                             o.sAppKey,
                             o.sAppSecret,
                             o.bState,
-                            o.dCreateTime, 
+                            o.dCreateTime,
                             o.dUpdateTime
                         })
                         .ToList();
-            } 
+            }
+        }  
+        public string GetSecretByKey(string key)
+        {
+            using (var db = new GLDbContext())
+            {
+                var result = db.GL_APP_Authorized.Where(o => o.sAppKey == key && !o.bIsDelete).Select(o => new { o.sAppSecret }).FirstOrDefault(); 
+                if (null == result || string.IsNullOrEmpty(result.sAppSecret))
+                {
+                    return string.Empty;
+                }
+                return result.sAppSecret;
+            }
         }
 
 

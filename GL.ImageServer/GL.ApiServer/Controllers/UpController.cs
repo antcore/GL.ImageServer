@@ -79,7 +79,7 @@ namespace GL.ApiServer.Controllers
                                 dCreateTime = DateTime.Now
                             };
                             // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
-                            img.sFilePath = string.Format(@"/{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
+                            img.sFilePath = string.Format(@"{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
                             //Write File
 
                             //判断文件路径
@@ -88,7 +88,7 @@ namespace GL.ApiServer.Controllers
                                 Directory.CreateDirectory(img.sFilePath);
                             }
                             //文件存储文件路径
-                            img.sFilePath = string.Format(@"{0}{1}.{2}", img.sFilePath, img.sId, img.sFileSiffix);
+                            img.sFilePath = string.Format(@"{0}/{1}.{2}", img.sFilePath, img.sId, img.sFileSiffix);
                             //写入磁盘
                             File.WriteAllBytes(img.sFilePath, data);
 
