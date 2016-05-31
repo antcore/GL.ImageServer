@@ -1,0 +1,56 @@
+﻿ 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <form enctype="multipart/form-data">
+            <input type="file" value="" id="test" />
+        </form>
+    </div>
+    <script src="~/Content/AmazeUI-2.7.0/js/jquery.min.js"></script>
+    <script src="~/Content/jquery.form.js"></script>
+    @* = key;
+    ViewBag. = timestamp;
+    ViewBag.sign = sign;*@
+    <script>
+        $(function () {
+            $('#test').change(function () {
+
+                $(this).parent().ajaxSubmit({
+                    dataType: "json",
+                    type:'POST',
+                    url: 'http://localhost:51465/api/up?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
+                    type: 'post', 
+                    data: {'dirId':'4'},
+                    //beforeSubmit: function () {
+                    //    alert("正在上传");
+                    //},
+                    success: function (res) {
+
+                        console.info(res);
+
+                        //alert('成功上传！');
+                        //var data = jQuery.parseJSON(result.result);
+                        //document.getElementById("photoId").value = data.photoId;
+                        //var photoUrl = document.getElementById("photoUrl");
+                        //photoUrl.src = data.photoUrl;
+                        //$file.remove();
+                    },
+                    error: function (result) {
+                        var data = jQuery.parseJSON(result.result);
+                        var message = data.message;
+                        $file.remove();
+                        alert(message);
+                    }
+                })
+
+            });
+        })
+    </script>
+</body>
+</html>

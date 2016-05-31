@@ -22,9 +22,11 @@ namespace GL.ApiServer.Controllers
         /// <param name="dirId">存储目录</param> 
         /// <param name="key">访问授权 KEY</param>
         /// <returns>获取图片访问路径</returns>
-        [Route("api/up/{key}/{dirId}")]
-        public async Task<HttpResponseMessage> Post(string dirId,string key)
+        [Route("api/up")]
+        public async Task<HttpResponseMessage> Post(string dirId)
         {
+            //string dirId = string.Empty;
+
             HelperResultMsg result = new HelperResultMsg(); 
 
             // multipart/form-data

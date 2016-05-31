@@ -6,6 +6,9 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Collections.Generic;
+using System.Text;
+using System.Security.Cryptography;
 
 /// <summary>
 /// WebAPI防篡改签名验证抽象基类Attribute
@@ -53,7 +56,7 @@ public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
                             throw new NotImplementedException();
                     }
                     //根据请求数据获取MD5签名
-                    string vSign = GetSecuritySign(partnerkey, partnerSecret, postCollection);
+                    string vSign = GetSecuritySign(partnerkey, partnerSecret, timestamp, postCollection);
                     if (string.Equals(sign, vSign, StringComparison.OrdinalIgnoreCase))
                     {//验证通过,执行基类方法
                         base.OnActionExecuting(actionContext);
@@ -66,11 +69,51 @@ public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
         actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
     }
 
-    private string GetSecuritySign(string partnerkey, string partnerSecret, NameValueCollection postCollection)
+    private string GetSecuritySign(string partnerkey, string partnerSecret, string timestamp, NameValueCollection postCollection)
     {
+        Dictionary<string, string> param = new Dictionary<string, string>();
+        string _key = string.Empty;
+        if (null!= postCollection && postCollection.Count>0) {
+            for (int i = 0; i < postCollection.Count; i++)
+            {
+                param.Add(_key, postCollection[_key]);
+            }
+        }
+        param.Add("timestamp", timestamp);
+        param.Add("dirId", "");
+        return GetSign(param, partnerSecret);
+    }
 
+    public string GetSign(Dictionary<string, string> parameters, string secret)
+    {
+        var sortedParams = new SortedDictionary<string, string>(parameters);
 
-        return string.Empty;
+        IEnumerator<KeyValuePair<string, string>> dem = sortedParams.GetEnumerator();
+
+        StringBuilder query = new StringBuilder(secret);
+        string _key = string.Empty;
+        string _value = string.Empty;
+        while (dem.MoveNext())
+        {
+            _key = dem.Current.Key;
+            _value = dem.Current.Value;
+            if (!string.IsNullOrEmpty(_key))
+            {
+                query.Append(_key).Append(_value);
+            }
+        }
+        query.Append(secret);
+
+        MD5 md5 = MD5.Create();
+        byte[] bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(query.ToString()));
+
+        StringBuilder result = new StringBuilder();
+        long bytesLength = bytes.Length;
+        for (int i = 0; i < bytesLength; i++)
+        {
+            result.Append(bytes[i].ToString("X2"));
+        }
+        return result.ToString();
     }
 
     /// <summary>
@@ -88,7 +131,7 @@ public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
                 end = long.Parse(timestamp);
             }
             long start = GetTimeStampNum();
-            if ((start - end) < -(1000 * 60 * 10))//10分钟内
+            if ((start - end) < (1000 * 60 * 10))//10分钟内
             {
                 flag = true;
             }

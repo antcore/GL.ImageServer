@@ -212,3 +212,18 @@
    在 System.Data.Entity.DbContext.SaveChanges()
    在 GL.DBOptions.Services.MemberService.Insert(GL_Member model) 位置 E:\code\GL.ImageServer\GL.ImageServer\GL.DBOptions\Services\MemberService.cs:行号 96 GL.Common.HelperNLog.Error
 14:48:26 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+22:36:02 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+22:36:27 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+-------------------------------
+22:41:12 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+-------------------------------
+22:44:53 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+-------------------------------
+22:45:17 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+22:47:48 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+22:55:22 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+22:58:41 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+23:08:06 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+23:10:54 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+23:24:43 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error
+23:35:46 Error 读取服务器-配置错误2016/5/31 GL.Common.HelperNLog.Error

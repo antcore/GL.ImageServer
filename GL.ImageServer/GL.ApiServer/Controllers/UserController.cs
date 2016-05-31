@@ -34,11 +34,6 @@ namespace GL.ApiServer.Controllers
             var result = new MemberService().Login(sUserName, sUserPwd);
             HelperSession.Instance.SetMemberInfo(result.resultInfo as MemberSessionModel);
             return Json(result);
-        }
-
-
-
-
-
+        } 
     }
 }
