@@ -11,10 +11,13 @@ namespace GL.DBOptions.Models
         [Key]
         [StringLength(32)]
         public string sId { get; set; }
+         
+        [StringLength(32)]
+        public string sDirId { get; set; }
 
         [Required]
         [StringLength(32)]
-        public string sDirId { get; set; }
+        public string sAppId { get; set; }
 
         [Required]
         [StringLength(100)]

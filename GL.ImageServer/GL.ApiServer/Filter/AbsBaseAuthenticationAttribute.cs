@@ -29,7 +29,6 @@ public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
             string partnerkey = getCollection["key"];
             string sign = getCollection["sign"];
             string timestamp = getCollection["timestamp"];
-
             if (
                VilidateTimestamp(timestamp)
                && !string.IsNullOrWhiteSpace(partnerkey)//partnerkey
@@ -62,6 +61,10 @@ public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
                         base.OnActionExecuting(actionContext);
                         return;
                     }
+                    else
+                    {
+                         
+                    }
                 }
             }
         }
@@ -72,15 +75,15 @@ public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
     private string GetSecuritySign(string partnerkey, string partnerSecret, string timestamp, NameValueCollection postCollection)
     {
         Dictionary<string, string> param = new Dictionary<string, string>();
+        param.Add("timestamp", timestamp);
         string _key = string.Empty;
         if (null!= postCollection && postCollection.Count>0) {
             for (int i = 0; i < postCollection.Count; i++)
             {
+                _key = postCollection.Keys[i];
                 param.Add(_key, postCollection[_key]);
             }
         }
-        param.Add("timestamp", timestamp);
-        param.Add("dirId", "");
         return GetSign(param, partnerSecret);
     }
 

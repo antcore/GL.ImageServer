@@ -18,15 +18,28 @@
     ViewBag. = timestamp;
     ViewBag.sign = sign;*@
     <script>
-        $(function () {
-            $('#test').change(function () {
+        @*$.ajax({ 
+                type:'POST',
+                url: 'http://localhost:51465/api/Directory?key=@ViewBag.key1&timestamp=@ViewBag.timestamp1&sign=@ViewBag.sign1',
+                type: 'post', 
+                data: { 'sDirName': '444' },
+                success: function (res) { 
+                    console.info(res); 
+                },
+                error: function (result) {
 
-                $(this).parent().ajaxSubmit({
-                    dataType: "json",
+                    console.info(result);
+                } 
+            
+        })*@
+
+        $(function () {
+            $('#test').change(function () { 
+
+                $(this).parent().ajaxSubmit({ 
                     type:'POST',
-                    url: 'http://localhost:51465/api/up?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
-                    type: 'post', 
-                    data: {'dirId':'4'},
+                    url: 'http://localhost:51465/api/up/45/?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
+                    type: 'post',  
                     //beforeSubmit: function () {
                     //    alert("正在上传");
                     //},

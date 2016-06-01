@@ -10,7 +10,7 @@ namespace GL.ApiServer.Controllers
 {
     public class TestController : Controller
     {
-        
+
 
         /// <summary>
         /// 获取时间戳
@@ -23,7 +23,7 @@ namespace GL.ApiServer.Controllers
         }
 
         public string GetSign(Dictionary<string, string> parameters, string secret)
-        { 
+        {
             var sortedParams = new SortedDictionary<string, string>(parameters);
 
             IEnumerator<KeyValuePair<string, string>> dem = sortedParams.GetEnumerator();
@@ -54,23 +54,35 @@ namespace GL.ApiServer.Controllers
             return result.ToString();
         }
 
-        string key = "3C09A1BA8456951184148F2C284AC24A";
-        string Secret = "5B53FC659A78E345";
+        //string key = "3C09A1BA8456951184148F2C284AC24A";
+        //string Secret = "5B53FC659A78E345";
 
+        string key = "550085CD4490EBBC2B482F8811322452";
+        string Secret = "5D63A562B0120AA7";
+
+        //string memberId = "f40017a6a909f65685981240cd40bb77";
         // GET: Test
         public ActionResult Index()
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             string timestamp = GetTimeStampNum().ToString();
-       
+
             param.Add("timestamp", timestamp);
-            param.Add("dirId", "");
+            //param.Add("dirId", "");
 
-            string sign = GetSign(param, Secret);
-
+            string sign = GetSign(param, Secret); 
             ViewBag.key = key;
             ViewBag.timestamp = timestamp;
             ViewBag.sign = sign;
+
+            param.Clear();
+            timestamp = GetTimeStampNum().ToString();
+            param.Add("timestamp", timestamp);
+            param.Add("sDirName", "444");
+            sign = GetSign(param, Secret);
+            ViewBag.key1 = key;
+            ViewBag.timestamp1 = timestamp;
+            ViewBag.sign1 = sign;
 
 
             return View();

@@ -1,0 +1,6 @@
+日期     种类    信息    来源
+14:29:36 Error System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 GL.DBOptions.Services.DirectoryService.Insert(GL_Directory model) 位置 E:\code\GL.ImageServer\GL.ImageServer\GL.DBOptions\Services\DirectoryService.cs:行号 26 GL.Common.HelperNLog.Error
