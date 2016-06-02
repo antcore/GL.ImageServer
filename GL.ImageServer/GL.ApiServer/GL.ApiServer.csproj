@@ -167,6 +167,7 @@
     <Compile Include="Controllers\DirectoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filter\AbsBaseAuthenticationAttribute.cs" />
+    <Compile Include="Filter\NoSignAttribute.cs" />
     <Compile Include="Filter\AuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

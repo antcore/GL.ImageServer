@@ -12,7 +12,7 @@ namespace GL.ApiServer
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Filters.Add(new AuthenticationAttribute());
+           // config.Filters.Add(new AuthenticationAttribute());
 
             // Web API 配置和服务
             var allowedMethods = ConfigurationManager.AppSettings["cors:allowedMethods"];

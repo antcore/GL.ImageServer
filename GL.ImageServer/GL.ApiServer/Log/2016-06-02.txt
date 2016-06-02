@@ -1,0 +1,17 @@
+日期     种类    信息    来源
+22:37:52 Error 读取服务器-配置错误2016/6/2 GL.Common.HelperNLog.Error
+22:37:59 Error 读取服务器-配置错误2016/6/2 GL.Common.HelperNLog.Error
+-------------------------------
+-------------------------------
+22:41:20 Error 读取服务器-配置错误2016/6/2 GL.Common.HelperNLog.Error
+-------------------------------
+22:50:22 Error 读取服务器-配置错误2016/6/2 GL.Common.HelperNLog.Error
+22:51:34 Error 读取服务器-配置错误2016/6/2 GL.Common.HelperNLog.Error
+22:53:11 Error 读取服务器-配置错误2016/6/2 GL.Common.HelperNLog.Error
+23:02:32 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/6/2 GL.Common.HelperNLog.Error
+23:05:24 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/6/2 GL.Common.HelperNLog.Error
+23:06:55 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/6/2 GL.Common.HelperNLog.Error
+23:09:30 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/6/2 GL.Common.HelperNLog.Error
+23:13:24 Error [图片服务器]表单[multipart/form-data]-上传异常 GL.Common.HelperNLog.Error
+23:13:45 Error [图片服务器]表单[multipart/form-data]-上传异常 GL.Common.HelperNLog.Error
+23:15:48 Error [图片服务器]表单[multipart/form-data]-上传异常 GL.Common.HelperNLog.Error

@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperSecurity.cs" />
     <Compile Include="HelperSession.cs" />
     <Compile Include="HelperMD5.cs" />
     <Compile Include="HelperAutoGuid.cs" />

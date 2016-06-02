@@ -38,8 +38,7 @@
 
                 $(this).parent().ajaxSubmit({ 
                     type:'POST',
-                    url: 'http://localhost:51465/api/up/45/?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
-                    type: 'post',  
+                    url: 'http://localhost:51465/api/up/@ViewBag.appid/45/?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign', 
                     //beforeSubmit: function () {
                     //    alert("正在上传");
                     //},

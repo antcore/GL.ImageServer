@@ -31,7 +31,11 @@ namespace GL.ApiServer
             }
             else
             {
-                HelperNLog.Default.Error("读取服务器-配置错误" + DateTime.Now.ToShortDateString());
+                ServerSetting.ServerPath = HelperReadConfig.ReadAppSetting("setting:savePath");
+                ServerSetting.SaveDisc = HelperReadConfig.ReadAppSetting("setting:saveDisc");
+                ServerSetting.sServerUriDomain = HelperReadConfig.ReadAppSetting("setting:serverUriDomain");
+
+                HelperNLog.Default.Error("读取数据库图片服务器-配置错误-已读取文件web.config 配置" + DateTime.Now.ToShortDateString());
             }
             #endregion
 
@@ -41,7 +45,7 @@ namespace GL.ApiServer
             // 在应用程序启动时运行的代码
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GL.Common;
+﻿using GL.ApiServer.Filter;
+using GL.Common;
 using GL.DBOptions.Models;
 using GL.DBOptions.Services;
 using Newtonsoft.Json;
@@ -18,7 +19,6 @@ namespace GL.ApiServer.Controllers
     /// </summary>
     public class UpController : ApiController
     {
-        
         public class UpdataModel
         {
             public string appid { get; set; }
@@ -26,12 +26,14 @@ namespace GL.ApiServer.Controllers
         }
 
         #region web 表单[multipart/form-data]提交文件
+
         /// <summary>
         /// 文件上传处理接口 -- 接收表单[multipart/form-data]提交文件 处理接口
         /// </summary>
-        /// <param name="dirId">存储目录</param> 
+        /// <param name="dirId">存储目录</param>
         /// <param name="key">访问授权 KEY</param>
         /// <returns>获取图片访问路径</returns>
+        //[NoSign]
         [Route("api/up/{appId}/{dirId}")]
         public async Task<HttpResponseMessage> Post(string appId, string dirId)
         {
@@ -39,13 +41,9 @@ namespace GL.ApiServer.Controllers
             if (string.IsNullOrEmpty(appId) || appId.Length != 32)
             {
                 result.message = "不合法的 appid";
-
             }
             else
-            {
-                // multipart/form-data
-                var provider = new MultipartMemoryStreamProvider();
-                await Request.Content.ReadAsMultipartAsync(provider);
+            { 
                 //文件信息
                 GL_Images img = null;
                 List<GL_Images> listFiles = new List<GL_Images>();
@@ -57,6 +55,10 @@ namespace GL.ApiServer.Controllers
                 FileInfo info = null;
                 try
                 {
+                    // multipart/form-data
+                    var provider = new MultipartMemoryStreamProvider();
+                    await Request.Content.ReadAsMultipartAsync(provider);
+
                     foreach (var item in provider.Contents)
                     {
                         if (item.Headers.ContentDisposition.FileName != null)
@@ -83,7 +85,8 @@ namespace GL.ApiServer.Controllers
                                     iFileSize = ms.Length, //文件大小
                                     iSource = 1, //文件来源 web
                                                  //
-                                    sDirId = dirId, sAppId = appId,
+                                    sDirId = dirId,
+                                    sAppId = appId,
                                     //sUriDomain = ServerSetting.sServerUriDomain,
                                     //sUriPath = string.Empty,
                                     //sFilePath = string.Empty,
@@ -137,21 +140,23 @@ namespace GL.ApiServer.Controllers
                 Content = new StringContent(JsonConvert.SerializeObject(result), System.Text.Encoding.UTF8, "application/json")
             };
         }
-        #endregion
-         
+
+        #endregion web 表单[multipart/form-data]提交文件
+
         #region 微信 传入 token与mediaid 下载图片
 
-        public class UpWeChatUpdataModel: UpdataModel
-        { 
+        public class WeChatUpdataModel : UpdataModel
+        {
             public string media_ids { get; set; }
             public string app_token { get; set; }
         }
-        // POST: api/WeChat 
+
+        // POST: api/WeChat
         /// <summary>
         /// 下载微信服务器上图片
         /// </summary>
-        /// <returns></returns> 
-        public HttpResponseMessage WeChat([FromBody]UpWeChatUpdataModel param)
+        /// <returns></returns>
+        public HttpResponseMessage WeChat([FromBody]WeChatUpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();
             string media_ids = param.media_ids;
@@ -197,14 +202,14 @@ namespace GL.ApiServer.Controllers
                                 sFileName = "微信上传图片",
                                 sFileSiffix = "jpg",
                                 iFileSize = ms.Length, //文件大小
-                                iSource = 2, //文件来源 wechat 
+                                iSource = 2, //文件来源 wechat
                                 sDirId = param.dirid,
-                                sAppId= param.appid, 
+                                sAppId = param.appid,
                                 dCreateTime = DateTime.Now
                             };
                             // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
                             img.sFilePath = string.Format(@"{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
-                            //Write File 
+                            //Write File
                             //判断文件路径
                             if (!Directory.Exists(img.sFilePath))
                             {
@@ -234,12 +239,108 @@ namespace GL.ApiServer.Controllers
                 Content = new StringContent(JsonConvert.SerializeObject(result), System.Text.Encoding.UTF8, "application/json")
             };
         }
-        #endregion
 
+        #endregion 微信 传入 token与mediaid 下载图片
 
+        #region base64 上传图片
 
+        public class Base64UpdataModel : UpdataModel
+        {
+            /// <summary>
+            /// 图片来源 默认 1web
+            /// </summary>
+            public string source { get; set; }
 
+            /// <summary>
+            /// 图片base64字符串 必须传人
+            /// </summary>
+            public string base64str { get; set; }
 
+            /// <summary>
+            /// 图片类型 文件后缀 jpg gif png ... 默认jpg
+            /// </summary>
+            public string fileSiffix { get; set; }
 
+            /// <summary>
+            /// 文件名称 默认 yyyyMMddHHmmssfff
+            /// </summary>
+            public string fileName { get; set; }
+        }
+
+        // POST: api/WeChat
+        /// <summary>
+        /// 图片base64字符串 上传文件图片
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public HttpResponseMessage base64([FromBody]Base64UpdataModel param)
+        {
+            HelperResultMsg result = new HelperResultMsg();
+            if (string.IsNullOrEmpty(param.appid) || param.appid.Length != 32)
+            {
+                result.message = "不合法的 appid";
+            }
+            else if (!string.IsNullOrEmpty(param.base64str))
+            {
+                result.message = "图片base64字符串未上传";
+            }
+            else
+            {
+                try
+                {
+                    GL_Images img;
+                    List<string> resultString = new List<string>();
+                    List<GL_Images> listFiles = new List<GL_Images>();
+                    byte[] data = Convert.FromBase64String(param.base64str);
+                    using (MemoryStream ms = new MemoryStream(data))
+                    {
+                        //Bitmap bmp = new Bitmap(ms);
+                        img = new GL_Images
+                        {
+                            sId = HelperAutoGuid.Instance.GetGuidString(),
+                            sFileName = (string.IsNullOrEmpty(param.fileName) ? DateTime.Now.ToString("yyyyMMddHHmmssfff") : param.fileSiffix),
+                            sFileSiffix = (string.IsNullOrEmpty(param.fileSiffix) ? "jpg" : param.fileSiffix),
+                            iFileSize = ms.Length, //文件大小
+                            iSource = (string.IsNullOrEmpty(param.source) ? 1 : int.Parse(param.source)), //文件来源 wechat
+                            sDirId = param.dirid,
+                            sAppId = param.appid,
+                            dCreateTime = DateTime.Now
+                        };
+                        // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
+                        img.sFilePath = string.Format(@"{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
+                        //Write File
+                        //判断文件路径
+                        if (!Directory.Exists(img.sFilePath))
+                        {
+                            Directory.CreateDirectory(img.sFilePath);
+                        }
+                        //文件存储文件路径
+                        img.sFilePath = string.Format(@"{0}/{1}.{2}", img.sFilePath, img.sId, img.sFileSiffix);
+                        //写入磁盘
+                        File.WriteAllBytes(img.sFilePath, data);
+
+                        //获取文件路径
+                        img.sUriDomain = ServerSetting.sServerUriDomain;
+                        img.sUriPath = string.Format(@"/api/down/{0}.{1}", img.sId, img.sFileSiffix);
+                        listFiles.Add(img);
+                        //获取文件请求路径
+                        resultString.Add(string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath));
+
+                        ms.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    HelperNLog.Default.Error("[图片服务器]base64-上传异常", ex);
+                    result.message = "base64-上传出现异常";
+                }
+            }
+            return new HttpResponseMessage
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(result), Encoding.UTF8, "application/json")
+            };
+        }
+
+        #endregion base64 上传图片
     }
 }

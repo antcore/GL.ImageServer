@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace GL.ApiServer.Filter
 {
-
+    // 使用1 全局
     //config.Filters.Add(new AuthenticationAttribute());
+    // 使用2 
     //[Authentication]
     //public class ApiControllerBase : ApiController
     //{
