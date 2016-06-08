@@ -78,22 +78,18 @@
                     haveData: (userValApps.length > 0),
                     items: userValApps
                 }
-            })
+            });
         }
-
         $('#btn-add-app').on('click', function () {
             $('#my-prompt').modal({
                 relatedTarget: this,
                 onConfirm: function (e) {
                     $.post('/App/Create', { sAppName: e.data }, function (res) {
                         gl.alert('提示', res.message);
-                        if (res.success) {
-                            location.reload();
-                        }
+                        res.success && location.reload();
                     }, 'json');
                 },
-                onCancel: function (e) {
-                }
+                onCancel: function (e) { }
             });
         });
     });

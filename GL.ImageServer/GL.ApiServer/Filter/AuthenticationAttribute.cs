@@ -26,13 +26,13 @@ namespace GL.ApiServer.Filter
             var ObjSecret = HelperMemoryCacher.Instance.GetValue("APP_PARTNERKEY_" + partnerKey);
             if (null == ObjSecret || string.IsNullOrEmpty(ObjSecret.ToString()))
             {
-                secret = new AppService().GetSecretByKey(partnerKey); 
+                secret = new AppService().GetSecretByKey(partnerKey);
                 HelperMemoryCacher.Instance.SetValue("APP_PARTNERKEY_" + partnerKey, secret, 1000 * 60 * 10);
             }
             else
             {
                 secret = ObjSecret.ToString();
-            } 
+            }
             return secret;
         }
     }

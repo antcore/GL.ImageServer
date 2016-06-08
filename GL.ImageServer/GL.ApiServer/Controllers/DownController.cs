@@ -1,4 +1,5 @@
-﻿using GL.Common;
+﻿using GL.ApiServer.Filter;
+using GL.Common;
 using GL.ImageOptions;
 using System;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace GL.ApiServer.Controllers
         /// </summary>
         /// <param name="fileInfo">guid+water-width-height.jpg ==》图片ID+水印名称-宽度-高度 water[t/i/''] -->t/文本水印 i-图片水印 没有则不传值</param>
         [Route("api/down/{fileInfo}")]
+        [NoSign]
         public async Task<HttpResponseMessage> GetImg(string fileInfo)
         {
             return await Task.Run(() =>

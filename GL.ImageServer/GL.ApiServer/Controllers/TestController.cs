@@ -35,14 +35,14 @@ namespace GL.ApiServer.Controllers
             ViewBag.timestamp = timestamp;
             ViewBag.sign = sign;
 
-            param.Clear();
-            timestamp = HelperSecurity.GetTimeStampNum().ToString();
-            param.Add("timestamp", timestamp);
-            param.Add("sDirName", "444");
-            sign = HelperSecurity.GetSign(param, Secret);
-            ViewBag.key1 = key;
-            ViewBag.timestamp1 = timestamp;
-            ViewBag.sign1 = sign;
+            //param.Clear();
+            //timestamp = HelperSecurity.GetTimeStampNum().ToString();
+            //param.Add("timestamp", timestamp);
+            //param.Add("sDirName", "444");
+            //sign = HelperSecurity.GetSign(param, Secret);
+            //ViewBag.key1 = key;
+            //ViewBag.timestamp1 = timestamp;
+            //ViewBag.sign1 = sign;
 
 
             return View();

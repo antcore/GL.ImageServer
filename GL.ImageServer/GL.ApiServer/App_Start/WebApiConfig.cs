@@ -12,7 +12,7 @@ namespace GL.ApiServer
     {
         public static void Register(HttpConfiguration config)
         {
-           // config.Filters.Add(new AuthenticationAttribute());
+            config.Filters.Add(new AuthenticationAttribute());
 
             // Web API 配置和服务
             var allowedMethods = ConfigurationManager.AppSettings["cors:allowedMethods"];
@@ -35,7 +35,7 @@ namespace GL.ApiServer
                 name: "ActionApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            ); 
+            );
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

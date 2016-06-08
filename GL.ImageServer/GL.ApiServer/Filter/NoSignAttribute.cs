@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GL.ApiServer.Filter
 {
     /// <summary>
-    /// 使用验证新 [NoSign]
+    /// 使用验证新 [NoSign] 标注不需要签名验证
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true)]
     public class NoSignAttribute : Attribute

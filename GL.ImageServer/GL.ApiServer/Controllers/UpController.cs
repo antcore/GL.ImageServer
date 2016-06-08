@@ -18,7 +18,8 @@ namespace GL.ApiServer.Controllers
     /// 文件上传 处理 API
     /// </summary>
     public class UpController : ApiController
-    {
+    { 
+
         public class UpdataModel
         {
             public string appid { get; set; }
@@ -33,9 +34,9 @@ namespace GL.ApiServer.Controllers
         /// <param name="dirId">存储目录</param>
         /// <param name="key">访问授权 KEY</param>
         /// <returns>获取图片访问路径</returns>
-        //[NoSign]
-        [Route("api/up/{appId}/{dirId}")]
-        public async Task<HttpResponseMessage> Post(string appId, string dirId)
+
+        [Route("api/up/web/{appId}/{dirId}")]
+        public async Task<HttpResponseMessage> web(string appId, string dirId)
         {
             HelperResultMsg result = new HelperResultMsg();
             if (string.IsNullOrEmpty(appId) || appId.Length != 32)
@@ -43,7 +44,7 @@ namespace GL.ApiServer.Controllers
                 result.message = "不合法的 appid";
             }
             else
-            { 
+            {
                 //文件信息
                 GL_Images img = null;
                 List<GL_Images> listFiles = new List<GL_Images>();
@@ -148,14 +149,15 @@ namespace GL.ApiServer.Controllers
         public class WeChatUpdataModel : UpdataModel
         {
             public string media_ids { get; set; }
-            public string app_token { get; set; }
+            public string wechat_token { get; set; }
         }
 
-        // POST: api/WeChat
+        // POST: api/up/WeChat
         /// <summary>
         /// 下载微信服务器上图片
         /// </summary>
         /// <returns></returns>
+        [Route("api/up/WeChat")]
         public HttpResponseMessage WeChat([FromBody]WeChatUpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();
@@ -181,7 +183,7 @@ namespace GL.ApiServer.Controllers
                     string[] MEDIA_IDS = media_ids.Split(',');
                     foreach (var media_id in MEDIA_IDS)
                     {
-                        wechatUri = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", param.app_token, media_id);
+                        wechatUri = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", param.wechat_token, media_id);
                         webRequest = (HttpWebRequest)WebRequest.Create(wechatUri);
                         webRequest.ProtocolVersion = HttpVersion.Version10;
                         webRequest.Timeout = 30000;
@@ -247,14 +249,14 @@ namespace GL.ApiServer.Controllers
         public class Base64UpdataModel : UpdataModel
         {
             /// <summary>
-            /// 图片来源 默认 1web
-            /// </summary>
-            public string source { get; set; }
-
-            /// <summary>
             /// 图片base64字符串 必须传人
             /// </summary>
             public string base64str { get; set; }
+
+            /// <summary>
+            /// 图片来源 默认 1web 
+            /// </summary>
+            public string source { get; set; }
 
             /// <summary>
             /// 图片类型 文件后缀 jpg gif png ... 默认jpg
@@ -267,12 +269,13 @@ namespace GL.ApiServer.Controllers
             public string fileName { get; set; }
         }
 
-        // POST: api/WeChat
+        // POST: api/up/base64
         /// <summary>
         /// 图片base64字符串 上传文件图片
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
+        [Route("api/up/base64")]
         public HttpResponseMessage base64([FromBody]Base64UpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();

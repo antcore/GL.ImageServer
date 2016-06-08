@@ -1,4 +1,4 @@
-﻿ 
+﻿
 <!DOCTYPE html>
 
 <html>
@@ -7,61 +7,29 @@
     <title>Index</title>
 </head>
 <body>
-    <div> 
+    <div>
         <form enctype="multipart/form-data">
-            <input type="file" value="" id="test" />
+            <input type="file" name="ddd" id="test" />
         </form>
     </div>
     <script src="~/Content/AmazeUI-2.7.0/js/jquery.min.js"></script>
     <script src="~/Content/jquery.form.js"></script>
-    @* = key;
-    ViewBag. = timestamp;
-    ViewBag.sign = sign;*@
+
     <script>
-        @*$.ajax({ 
-                type:'POST',
-                url: 'http://localhost:51465/api/Directory?key=@ViewBag.key1&timestamp=@ViewBag.timestamp1&sign=@ViewBag.sign1',
-                type: 'post', 
-                data: { 'sDirName': '444' },
-                success: function (res) { 
-                    console.info(res); 
-                },
-                error: function (result) {
-
-                    console.info(result);
-                } 
-            
-        })*@
-
         $(function () {
-            $('#test').change(function () { 
-
-                $(this).parent().ajaxSubmit({ 
-                    type:'POST',
-                    url: 'http://localhost:51465/api/up/@ViewBag.appid/45/?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign', 
-                    //beforeSubmit: function () {
-                    //    alert("正在上传");
-                    //},
+            $('#test').change(function () {
+                $(this).parent().ajaxSubmit({
+                    type: 'POST',
+                    url: 'http://192.168.31.221:81/api/up/web/@ViewBag.appid/45/?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
                     success: function (res) {
-
                         console.info(res);
-
-                        //alert('成功上传！');
-                        //var data = jQuery.parseJSON(result.result);
-                        //document.getElementById("photoId").value = data.photoId;
-                        //var photoUrl = document.getElementById("photoUrl");
-                        //photoUrl.src = data.photoUrl;
-                        //$file.remove();
                     },
-                    error: function (result) {
-                        var data = jQuery.parseJSON(result.result);
-                        var message = data.message;
-                        $file.remove();
-                        alert(message);
+                    error: function (res) {
+                        console.info(res);
                     }
-                })
-
+                }) 
             });
+
         })
     </script>
 </body>
