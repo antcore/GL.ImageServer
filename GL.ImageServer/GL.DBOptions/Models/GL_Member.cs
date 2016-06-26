@@ -1,22 +1,19 @@
 namespace GL.DBOptions.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class GL_Member
     {
         [Key]
         [StringLength(32)]
         public string sId { get; set; }
-         
+
         public string sUserName { get; set; }
 
         [StringLength(30)]
         public string sUserEmail { get; set; }
-         
+
         public string sUserPhone { get; set; }
 
         [Required]

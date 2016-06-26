@@ -13,6 +13,7 @@
                 <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
                         <button type="button" class="am-btn am-btn-default" id="btn-add-app"><span class="am-icon-plus"></span> 新增</button>
+                        <button type="button" class="am-btn am-btn-default" id="btn-remove-app"><span class="am-icon-Trash"></span> 删除</button>
                     </div>
                 </div>
             </div>
@@ -24,22 +25,20 @@
                         <tr>
                             <th class="table-check"><input type="checkbox"></th>
                             <th class="table-title">应用名称</th>
+                            <th class="table-title">AppId</th>
                             <th class="table-title">AppKey</th>
                             <th class="table-title">AppSecret</th>
                             <th class="table-type">应用状态</th>
-                            <th class="table-date">创建时间</th>
-                            <th class="table-date">修改时间</th>
                         </tr>
                     </thead>
                     <tbody v-if="haveData">
                         <tr v-for="item in items">
                             <td><input type="checkbox" data-id="{{item.sId}}"></td>
                             <td>{{item.sAppName}}</td>
+                            <td>{{item.sAppId}}</td>
                             <td>{{item.sAppKey}}</td>
                             <td>{{item.sAppSecret}}</td>
                             <td>{{item.bState}}</td>
-                            <td>{{item.dCreateTime}}</td>
-                            <td>{{item.dUpdateTime}}</td>
                         </tr>
                     </tbody>
                     <tbody v-else>
@@ -54,14 +53,25 @@
 </div>
 <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">Amaze UI</div>
+        <div class="am-modal-hd">创建新应用</div>
         <div class="am-modal-bd">
-            请输入应用名称：
-            <input type="text" class="am-modal-prompt-input">
+            <p>应用名称：<input type="text" class="am-modal-prompt-input"></p>
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-cancel>算 了</span>
             <span class="am-modal-btn" data-am-modal-confirm>创 建</span>
+        </div>
+    </div>
+</div>
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-bd">
+            确定要删除选择的记录吗？<br />
+            删除之后，该应用下的数据将不能取得，确定请继续！
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定删除</span>
         </div>
     </div>
 </div>
@@ -75,8 +85,7 @@
             new Vue({
                 el: '#user-apps',
                 data: {
-                    haveData: (userValApps.length > 0),
-                    items: userValApps
+                    haveData: (userValApps.length > 0), items: userValApps
                 }
             });
         }
@@ -84,13 +93,35 @@
             $('#my-prompt').modal({
                 relatedTarget: this,
                 onConfirm: function (e) {
-                    $.post('/App/Create', { sAppName: e.data }, function (res) {
-                        gl.alert('提示', res.message);
-                        res.success && location.reload();
-                    }, 'json');
+                    if (e.data) {
+                        $.post('/App/Create', { sAppName: e.data }, function (res) {
+                            gl.alert('提示', res.message);
+                            res.success && location.reload();
+                        }, 'json');
+                    }
                 },
                 onCancel: function (e) { }
             });
+        });
+        var removeAppIds = [];
+        $('#btn-remove-app').on('click', function () {
+            removeAppIds.length = 0;
+            $('input[type=checkbox]:checked').each(function () {
+                removeAppIds.push($(this).attr('data-id'));
+            });
+            if (removeAppIds.length <= 0) {
+                gl.alert('提示', '请选择要移除的应用名称');
+                return;
+            }
+            $('#my-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function (options) {
+                    $.post('/App/Delete', { appIds: removeAppIds.join() }, function (res) {
+                        gl.alert('提示', res.message);
+                        res.success && location.reload();
+                    }, 'json');
+                }
+            }); 
         });
     });
 </script>

@@ -57,8 +57,7 @@
                 // 使用自定义的提示信息 或 插件内置的提示信息
                 var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
                 if (!$alert.length) {
-                    $alert = $('<div class="am-alert am-alert-danger"></div>').hide().
-                      appendTo($group);
+                    $alert = $('<div class="am-alert am-alert-danger"></div>').hide().appendTo($group);
                 }
                 $alert.html(msg).show();
             }
@@ -67,9 +66,7 @@
             if (!formUserLogin.validator('isFormValid')) { return; }
             $.post('/User/SubmitLogin', $(formUserLogin).serialize(), function (res) {
                 gl.alert('提示', res.message);
-                if (res.success) { 
-                    location.href = '/App/List';
-                }
+                (res.success) &&(location.href = '/App/List');
             }, 'json');
         });
     });

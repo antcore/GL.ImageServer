@@ -1,10 +1,8 @@
 namespace GL.DBOptions
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
     using Models;
+    using System.Data.Entity;
+
     public partial class GLDbContext : DbContext
     {
         public GLDbContext()

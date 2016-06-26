@@ -1,17 +1,14 @@
 namespace GL.DBOptions.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class GL_Images
     {
         [Key]
         [StringLength(32)]
         public string sId { get; set; }
-         
+
         [StringLength(32)]
         public string sDirId { get; set; }
 

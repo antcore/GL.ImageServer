@@ -44,5 +44,11 @@ namespace GL.ApiServer.Controllers
             return Json(result);
         }
 
+        public JsonResult Delete(string appIds)
+        {
+    
+            var result = appService.Delete(appIds); 
+            return Json(result);
+        }
     }
 }

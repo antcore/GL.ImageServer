@@ -2,16 +2,12 @@
 using GL.Common;
 using GL.DBOptions.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GL.DBOptions.Services
 {
     public class MemberService
     {
-
         public HelperResultMsg Login(string sUserName, string sUserPwd)
         {
             HelperResultMsg msg = new HelperResultMsg();
@@ -92,7 +88,6 @@ namespace GL.DBOptions.Services
                     //};
                     //db.GL_Directory.Add(directory);
 
-
                     db.SaveChanges();
 
                     msg.success = true;
@@ -120,9 +115,8 @@ namespace GL.DBOptions.Services
                         {
                             sUserEmail = model.sUserEmail,
                             //sUserName = model.sUserName,
-                            //sUserPhone = model.sUserPhone,  
+                            //sUserPhone = model.sUserPhone,
                             dUpdateTime = DateTime.Now
-
                         });
                     db.SaveChanges();
 
@@ -149,11 +143,9 @@ namespace GL.DBOptions.Services
                         .Where(o => o.sId == sid)
                         .Update(o => new GL_Member
                         {
-
                             //sUserName = model.sUserName,
-                            //sUserPhone = model.sUserPhone,  
+                            //sUserPhone = model.sUserPhone,
                             dUpdateTime = DateTime.Now
-
                         });
                     db.SaveChanges();
 
@@ -181,9 +173,8 @@ namespace GL.DBOptions.Services
                         .Update(o => new GL_Member
                         {
                             //sUserName = model.sUserName,
-                            //sUserPhone = model.sUserPhone,  
+                            //sUserPhone = model.sUserPhone,
                             dUpdateTime = DateTime.Now
-
                         });
                     db.SaveChanges();
 
@@ -198,10 +189,5 @@ namespace GL.DBOptions.Services
             }
             return msg;
         }
-
-
-
     }
-
-
 }

@@ -2,16 +2,12 @@
 using GL.Common;
 using GL.DBOptions.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GL.DBOptions.Services
 {
     public class DirectoryService
     {
-          
         public HelperResultMsg Insert(GL_Directory model)
         {
             HelperResultMsg msg = new HelperResultMsg();
@@ -37,7 +33,7 @@ namespace GL.DBOptions.Services
             return msg;
         }
 
-        public HelperResultMsg Update(string sid,GL_Directory model)
+        public HelperResultMsg Update(string sid, GL_Directory model)
         {
             HelperResultMsg msg = new HelperResultMsg();
             try
@@ -48,11 +44,11 @@ namespace GL.DBOptions.Services
                         .Where(o => o.sId == sid)
                         .Update(o => new GL_Directory
                         {
-                            sDirName = model.sDirName, 
+                            sDirName = model.sDirName,
                             sDirExplain = model.sDirExplain,
 
                             dUpdateTime = DateTime.Now
-                        }); 
+                        });
                     db.SaveChanges();
 
                     msg.success = true;
@@ -66,9 +62,5 @@ namespace GL.DBOptions.Services
             }
             return msg;
         }
-
-
     }
-
-
 }

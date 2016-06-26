@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201606020115218_update_imgage_appid.Designer.cs">
       <DependentUpon>201606020115218_update_imgage_appid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606260102221_updata_app_author.cs" />
+    <Compile Include="Migrations\201606260102221_updata_app_author.Designer.cs">
+      <DependentUpon>201606260102221_updata_app_author.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GL_APP_Authorized.cs" />
     <Compile Include="Models\GL_CloudSetting.cs" />
@@ -106,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606020115218_update_imgage_appid.resx">
       <DependentUpon>201606020115218_update_imgage_appid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606260102221_updata_app_author.resx">
+      <DependentUpon>201606260102221_updata_app_author.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
