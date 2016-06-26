@@ -2,6 +2,7 @@
 using GL.DBOptions.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GL.DBOptions.Services
 {
@@ -39,5 +40,22 @@ namespace GL.DBOptions.Services
             }
             return msg;
         }
+
+
+        public object GetByAppId(string appId, int pageSize, int pageIndex)
+        {
+            using (var db = new GLDbContext())
+            {
+                var result = db.GL_Images
+                    .Where(o => o.sAppId == appId && !o.bIsDelete)
+                        .Select(o => new
+                        {
+                            o.sUriDomain,
+                            o.sUriPath
+                        });
+                return result.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList(); 
+            }
+        }
+
     }
 }

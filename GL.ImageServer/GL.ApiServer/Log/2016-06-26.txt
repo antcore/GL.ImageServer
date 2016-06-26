@@ -10,3 +10,4 @@
 -------------------------------
 09:36:02 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/6/26 GL.Common.HelperNLog.Error
 -------------------------------
+14:28:18 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/6/26 GL.Common.HelperNLog.Error
