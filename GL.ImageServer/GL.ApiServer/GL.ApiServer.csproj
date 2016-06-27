@@ -191,6 +191,7 @@
     <Content Include="Views\App\List.cshtml" />
     <None Include="Properties\PublishProfiles\Gl.ImageServer.Home.pubxml" />
     <None Include="Properties\PublishProfiles\GL.pubxml" />
+    <None Include="Properties\PublishProfiles\GLimageser.c.pubxml" />
     <None Include="Properties\PublishProfiles\GL_IMAGE_SERVER.pubxml" />
     <Content Include="Views\Test\Index.cshtml" />
     <None Include="Web.Debug.config">
