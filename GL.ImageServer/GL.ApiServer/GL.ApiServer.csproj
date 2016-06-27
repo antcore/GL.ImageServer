@@ -154,6 +154,7 @@
     <Content Include="Content\jquery.form.js" />
     <Content Include="Content\vue\vue.js" />
     <Content Include="Content\vue\vue.min.js" />
+    <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>

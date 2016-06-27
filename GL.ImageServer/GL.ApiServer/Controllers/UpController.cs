@@ -36,10 +36,11 @@ namespace GL.ApiServer.Controllers
         /// <returns>获取图片访问路径</returns>
 
         [Route("api/up/web/{appId}/{dirId}")]
+        [NoSignImageWebUp]
         public async Task<HttpResponseMessage> web(string appId, string dirId)
         {
             HelperResultMsg result = new HelperResultMsg();
-            if (string.IsNullOrEmpty(appId) || appId.Length != 32)
+            if (string.IsNullOrEmpty(appId))
             {
                 result.message = "不合法的 appid";
             }

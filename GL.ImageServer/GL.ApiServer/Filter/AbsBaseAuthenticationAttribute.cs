@@ -33,6 +33,11 @@ namespace GL.ApiServer.Filter
             return actionContext.ActionDescriptor.GetCustomAttributes<NoSignAttribute>().Any()
                 || actionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<NoSignAttribute>().Any();
         }
+        private static bool SkipNoSignImageWeb(HttpActionContext actionContext)
+        {
+            return actionContext.ActionDescriptor.GetCustomAttributes<NoSignImageWebUpAttribute>().Any()
+                || actionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<NoSignImageWebUpAttribute>().Any();
+        }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
@@ -66,7 +71,9 @@ namespace GL.ApiServer.Filter
                         switch (request.RequestType.ToUpper())
                         {
                             case "GET":
-                            case "DELETE": break;
+                            case "DELETE":
+
+                                break;
                             //只是为了同时显示restful四种方式才有这部分无意义代码
                             //实际该以哪种方式进行请求应遵循restful标准
                             case "POST":
@@ -77,6 +84,11 @@ namespace GL.ApiServer.Filter
                                 throw new NotImplementedException();
                         }
                         //根据请求数据获取MD5签名
+                        if (SkipNoSignImageWeb(actionContext))
+                        {
+                            postCollection = null;
+                        }
+
                         string vSign = HelperSecurity.GetSecuritySign(partnerSecret, timestamp, postCollection);
                         if (string.Equals(sign, vSign, StringComparison.OrdinalIgnoreCase))
                         {

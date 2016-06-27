@@ -47,6 +47,7 @@ namespace GL.DBOptions.Services
             using (var db = new GLDbContext())
             {
                 var result = db.GL_Images
+                    .OrderByDescending(o=>o.dCreateTime)
                     .Where(o => o.sAppId == appId && !o.bIsDelete)
                         .Select(o => new
                         {

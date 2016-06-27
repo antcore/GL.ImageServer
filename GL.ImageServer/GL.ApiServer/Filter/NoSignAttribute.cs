@@ -15,4 +15,9 @@ namespace GL.ApiServer.Filter
     public class NoSignAttribute : Attribute
     {
     }
+
+    [AttributeUsage(AttributeTargets.Method  , Inherited = true)]
+    public class NoSignImageWebUpAttribute : Attribute
+    {
+    }
 }

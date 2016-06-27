@@ -20,14 +20,14 @@
             $('#test').change(function () {
                 $(this).parent().ajaxSubmit({
                     type: 'POST',
-                    url: 'http://192.168.31.221:81/api/up/web/@ViewBag.appid/45/?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
+                    url: 'http://192.168.31.221:81/api/up/web/{appId}/{dirId}?key=@ViewBag.key&timestamp=@ViewBag.timestamp&sign=@ViewBag.sign',
                     success: function (res) {
                         console.info(res);
                     },
                     error: function (res) {
                         console.info(res);
                     }
-                }) 
+                })
             });
 
         })
