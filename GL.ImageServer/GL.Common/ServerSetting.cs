@@ -14,7 +14,11 @@ namespace GL.Common
         /// <summary>
         /// 数据库配置中图片服务器地址 域名或者IP访问[http://IP:PORT]
         /// </summary>
-        public static string sServerUriDomain { get; set; }  
+        public static string sServerUriDomain { get; set; }
+        /// <summary>
+        /// 配置虚拟目录 下载路径
+        /// </summary>
+        public static string sVirtual_Directory { get; set; }
         /// <summary>
         /// 数据库配置中图片服务器 图片存储 磁盘盘符
         /// </summary>

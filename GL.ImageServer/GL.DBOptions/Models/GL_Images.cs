@@ -24,6 +24,13 @@ namespace GL.DBOptions.Models
         [StringLength(100)]
         public string sUriPath { get; set; }
 
+        /// <summary>
+        /// ÅäÖÃĞéÄâÄ¿Â¼ ÏÂÔØÂ·¾¶
+        /// </summary>
+        [Required]
+        [StringLength(100)]
+        public string sVirtual_DirectoryPath { get; set; }
+
         public int iSource { get; set; }
 
         [StringLength(100)]
