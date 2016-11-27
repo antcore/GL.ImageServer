@@ -22,23 +22,15 @@ namespace GL.ApiServer.Controllers
     public class UpController : ApiController
     {
 
-        public class UpdataModel
-        {
-            public string appid { get; set; }
-            public string dirid { get; set; }
-        }
-
         #region web 表单[multipart/form-data]提交文件
 
         /// <summary>
         /// 文件上传处理接口 -- 接收表单[multipart/form-data]提交文件 处理接口
         /// </summary>
-        /// <param name="dirId">存储目录</param>
-        /// <param name="key">访问授权 KEY</param>
-        /// <returns>获取图片访问路径</returns>
-
-        [Route("api/up/web/{appId}/{dirId}")]
-        public async Task<HttpResponseMessage> web(string appId, string dirId)
+        /// <param name="appId">应用ID</param> 
+        /// <returns>获取图片访问路径</returns> 
+        [Route("api/{appId}/webup")]
+        public async Task<HttpResponseMessage> web(string appId)
         {
             HelperResultMsg result = new HelperResultMsg();
             if (string.IsNullOrEmpty(appId))
@@ -88,7 +80,6 @@ namespace GL.ApiServer.Controllers
                                     iFileSize = ms.Length, //文件大小
                                     iSource = 1, //文件来源 web
                                                  //
-                                    sDirId = dirId,
                                     sAppId = appId,
                                     //sUriDomain = ServerSetting.sServerUriDomain,
                                     //sUriPath = string.Empty,
@@ -146,9 +137,10 @@ namespace GL.ApiServer.Controllers
 
         #endregion web 表单[multipart/form-data]提交文件
 
+
         #region 微信 传入 token与mediaid 下载图片
 
-        public class WeChatUpdataModel : UpdataModel
+        public class WeChatUpdataModel
         {
             public string media_ids { get; set; }
             public string wechat_token { get; set; }
@@ -159,16 +151,13 @@ namespace GL.ApiServer.Controllers
         /// 下载微信服务器上图片
         /// </summary>
         /// <returns></returns>
-        [Route("api/up/WeChat")]
-        public HttpResponseMessage WeChat([FromBody]WeChatUpdataModel param)
+        [Route("api/{appId}/wechatup")]
+        public HttpResponseMessage WeChat(string appId, [FromBody]WeChatUpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();
             string media_ids = param.media_ids;
-            if (string.IsNullOrEmpty(param.appid) || param.appid.Length != 32)
-            {
-                result.message = "不合法的 appid";
-            }
-            else if (media_ids.Length <= 0)
+
+            if (media_ids.Length <= 0)
             {
                 result.message = "请微信上传图片 media_ids";
             }
@@ -207,8 +196,7 @@ namespace GL.ApiServer.Controllers
                                 sFileSiffix = "jpg",
                                 iFileSize = ms.Length, //文件大小
                                 iSource = 2, //文件来源 wechat
-                                sDirId = param.dirid,
-                                sAppId = param.appid,
+                                sAppId = appId,
                                 dCreateTime = DateTime.Now
                             };
                             // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
@@ -246,19 +234,16 @@ namespace GL.ApiServer.Controllers
 
         #endregion 微信 传入 token与mediaid 下载图片
 
+
         #region base64 上传图片
 
-        public class Base64UpdataModel : UpdataModel
+        public class Base64UpdataModel
         {
             /// <summary>
             /// 图片base64字符串 必须传人
             /// </summary>
             public string base64str { get; set; }
 
-            /// <summary>
-            /// 图片来源 默认 1web 
-            /// </summary>
-            public string source { get; set; }
 
             /// <summary>
             /// 图片类型 文件后缀 jpg gif png ... 默认jpg
@@ -277,15 +262,12 @@ namespace GL.ApiServer.Controllers
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        [Route("api/up/base64")]
-        public HttpResponseMessage base64([FromBody]Base64UpdataModel param)
+        [Route("api/{appId}/base64up")]
+        public HttpResponseMessage base64(string appid, [FromBody]Base64UpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();
-            if (string.IsNullOrEmpty(param.appid) || param.appid.Length != 16)
-            {
-                result.message = "不合法的 appid";
-            }
-            else if (string.IsNullOrEmpty(param.base64str))
+
+            if (string.IsNullOrEmpty(param.base64str))
             {
                 result.message = "图片base64字符串未上传";
             }
@@ -306,9 +288,8 @@ namespace GL.ApiServer.Controllers
                             sFileName = (string.IsNullOrEmpty(param.fileName) ? DateTime.Now.ToString("yyyyMMddHHmmssfff") : param.fileSiffix),
                             sFileSiffix = (string.IsNullOrEmpty(param.fileSiffix) ? "jpg" : param.fileSiffix),
                             iFileSize = ms.Length, //文件大小
-                            iSource = (string.IsNullOrEmpty(param.source) ? 1 : int.Parse(param.source)), //文件来源 wechat
-                            sDirId = param.dirid,
-                            sAppId = param.appid,
+
+                            sAppId = appid,
                             dCreateTime = DateTime.Now
                         };
                         // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹

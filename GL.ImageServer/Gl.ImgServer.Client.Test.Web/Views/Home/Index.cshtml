@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5实现多文件图片</title>
+    <link href="~/Content/html5Upload/res/css/$.zy.img.up.min.css" rel="stylesheet" />
+    <script src="~/Content/html5Upload/res/js/jquery-1.7.2.js"></script>
+    <script src="~/Content/html5Upload/res/$.zy.img.up.min.js"></script>
+</head>
+
+<body>
+    <h1 style="text-align:center;">Html5上传图片</h1>
+
+
+    <input type="text" value="@ViewBag.ImageServerUri" id="imageServer-uri" style="width:1400px;" />
+    <div id="demo" class="demo"></div>
+
+    <script>
+
+        $(function () {
+            var imageserveruri = $('#imageServer-uri').val();
+
+            // 初始化插件
+            $("#demo").zyUpload({
+                width: "650px",                  // 宽度
+                height: "400px",                 // 宽度
+                itemWidth: "120px",                 // 文件项的宽度
+                itemHeight: "100px",                 // 文件项的高度
+                //url: "http://localhost:51465/api/up/multipartformdata",  // 上传文件的路径
+                //url: "http://localhost:51465/api/up/web/1/2",  // 上传文件的路径
+                url: imageserveruri,
+                multiple: true,               // 是否可以多个文件上传
+                dragDrop: true,               // 是否可以拖动上传文件
+                del: true,                   // 是否可以删除文件
+                finishDel: false,  				  // 是否在上传文件完成后删除预览
+                /* 外部获得的回调接口 */
+                onSelect: function (files, allFiles) {                    // 选择文件的回调方法
+                    console.info("当前选择了以下文件：");
+                    console.info(files);
+                    console.info("之前没上传的文件：");
+                    console.info(allFiles);
+                },
+                onDelete: function (file, surplusFiles) {                     // 删除一个文件的回调方法
+                    console.info("当前删除了此文件：");
+                    console.info(file);
+                    console.info("当前剩余的文件：");
+                    console.info(surplusFiles);
+                },
+                onSuccess: function (file) {                    // 文件上传成功的回调方法
+                    console.info("此文件上传成功：");
+                    console.info(file);
+                },
+                onFailure: function (file) {                    // 文件上传失败的回调方法
+                    console.info("此文件上传失败：");
+                    console.info(file);
+                },
+                onComplete: function (responseInfo) {           // 上传完成的回调方法
+                    console.info("文件上传完成");
+                    console.info(responseInfo);
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
+
+
+
+

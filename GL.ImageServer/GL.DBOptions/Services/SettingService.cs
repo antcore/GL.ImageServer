@@ -25,10 +25,21 @@ namespace GL.DBOptions.Services
 
         public GL_CloudSetting GetByServerCode(string ServerCode)
         {
-            using (var db = new GLDbContext())
+            GL_CloudSetting model = null;
+            try
             {
-                return db.GL_CloudSetting.FirstOrDefault(o => o.sServerCode == ServerCode);
+                using (var db = new GLDbContext())
+                {
+                    model = db.GL_CloudSetting.FirstOrDefault(o => o.sServerCode == ServerCode);
+                }
             }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+
+            return model;
         }
     }
 }

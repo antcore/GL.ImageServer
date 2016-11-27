@@ -14,3 +14,10 @@
 11:29:37 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/27 GL.Common.HelperNLog.Error
 11:34:20 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/27 GL.Common.HelperNLog.Error
 11:44:33 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/27 GL.Common.HelperNLog.Error
+16:24:02 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/27 GL.Common.HelperNLog.Error
+-------------------------------
+16:26:20 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/27 GL.Common.HelperNLog.Error
+-------------------------------
+16:32:03 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/27 GL.Common.HelperNLog.Error
+16:32:29 Error [图片服务器]客户端请求图片参数设置宽高错误 GL.Common.HelperNLog.Error
+-------------------------------

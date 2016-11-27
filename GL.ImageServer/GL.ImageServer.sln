@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.ApiServer", "GL.ApiServer\GL.ApiServer.csproj", "{F3E5D1FE-FE93-44A0-83E8-D8D0AE6F9E9C}"
 EndProject
@@ -10,6 +10,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.Common", "GL.Common\GL.Common.csproj", "{38B426FA-FBCB-443C-9CB7-2CA3B9DAC772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.ImageOptions", "GL.ImageOptions\GL.ImageOptions.csproj", "{54A9655A-67BA-4243-A786-0FD80DDF8C98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{9B7245A6-1C3D-438D-A286-B970C866C37D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.ImgServer.Client", "GL.ImgServer.Client\GL.ImgServer.Client.csproj", "{74778C9B-674D-4971-A374-3084D503E4A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gl.ImgServer.Client.Test.Web", "Gl.ImgServer.Client.Test.Web\Gl.ImgServer.Client.Test.Web.csproj", "{1B2A9C20-3E9A-453C-B4A2-051C29C6CDBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gl.ImgServer.Client.Test.WinForm", "Gl.ImgServer.Client.Test.WinForm\Gl.ImgServer.Client.Test.WinForm.csproj", "{0AD9D673-4273-4399-9FAE-9C25F5C61987}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +41,25 @@ Global
 		{54A9655A-67BA-4243-A786-0FD80DDF8C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54A9655A-67BA-4243-A786-0FD80DDF8C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A9655A-67BA-4243-A786-0FD80DDF8C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74778C9B-674D-4971-A374-3084D503E4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74778C9B-674D-4971-A374-3084D503E4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74778C9B-674D-4971-A374-3084D503E4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74778C9B-674D-4971-A374-3084D503E4A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B2A9C20-3E9A-453C-B4A2-051C29C6CDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B2A9C20-3E9A-453C-B4A2-051C29C6CDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B2A9C20-3E9A-453C-B4A2-051C29C6CDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B2A9C20-3E9A-453C-B4A2-051C29C6CDBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AD9D673-4273-4399-9FAE-9C25F5C61987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AD9D673-4273-4399-9FAE-9C25F5C61987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AD9D673-4273-4399-9FAE-9C25F5C61987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AD9D673-4273-4399-9FAE-9C25F5C61987}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{74778C9B-674D-4971-A374-3084D503E4A7} = {9B7245A6-1C3D-438D-A286-B970C866C37D}
+		{1B2A9C20-3E9A-453C-B4A2-051C29C6CDBD} = {9B7245A6-1C3D-438D-A286-B970C866C37D}
+		{0AD9D673-4273-4399-9FAE-9C25F5C61987} = {9B7245A6-1C3D-438D-A286-B970C866C37D}
 	EndGlobalSection
 EndGlobal

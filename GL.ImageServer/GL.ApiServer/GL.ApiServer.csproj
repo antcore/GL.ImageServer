@@ -164,7 +164,6 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\DownController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UpController.cs" />
     <Compile Include="Controllers\DirectoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -189,10 +188,6 @@
     <Content Include="Content\AmazeUI-2.7.0\fonts\FontAwesome.otf" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\App\List.cshtml" />
-    <None Include="Properties\PublishProfiles\Gl.ImageServer.Home.pubxml" />
-    <None Include="Properties\PublishProfiles\GL.pubxml" />
-    <None Include="Properties\PublishProfiles\GLimageser.c.pubxml" />
-    <None Include="Properties\PublishProfiles\GL_IMAGE_SERVER.pubxml" />
     <Content Include="Views\Test\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -204,6 +199,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
@@ -235,7 +231,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51465</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51465/</IISUrl>
+          <IISUrl>http://localhost:4001/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

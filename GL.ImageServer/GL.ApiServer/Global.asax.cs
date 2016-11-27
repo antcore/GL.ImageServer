@@ -18,7 +18,7 @@ namespace GL.ApiServer
     {
         void Application_Start(object sender, EventArgs e)
         {
-            ServerSetting.ServerCode = HelperReadConfig.ReadAppSetting("IMAGE_SERVERCODE");
+            ServerSetting.ServerCode = HelperReadConfig.ReadAppSetting("setting:IMAGE_SERVER_CODE");
             #region 获取 数据库中 图片服务器配置信息 根据图片服务器唯一识别 编码
 
             //初始化图片服务器信息
@@ -31,9 +31,10 @@ namespace GL.ApiServer
             }
             else
             {
-                ServerSetting.ServerPath = HelperReadConfig.ReadAppSetting("setting:savePath");
-                ServerSetting.SaveDisc = HelperReadConfig.ReadAppSetting("setting:saveDisc");
-                ServerSetting.sServerUriDomain = HelperReadConfig.ReadAppSetting("setting:serverUriDomain");
+                ServerSetting.SaveDisc = HelperReadConfig.ReadAppSetting("setting:save_Disc");
+                ServerSetting.ServerPath = HelperReadConfig.ReadAppSetting("setting:save_Path");
+
+                ServerSetting.sServerUriDomain = HelperReadConfig.ReadAppSetting("setting:SERVER_URI_DOMAIN");
 
                 HelperNLog.Default.Error("读取数据库图片服务器-配置错误-已读取文件web.config 配置" + DateTime.Now.ToShortDateString());
             }

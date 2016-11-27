@@ -71,7 +71,7 @@ namespace GL.Common
             bool flag = false;
             if (!string.IsNullOrEmpty(timestamp) && Regex.IsMatch(timestamp, "^[0-9]+$"))
             {
-                long start = GetTimeStampNum();
+                long start = GetTimeStamp();
                 long end = long.Parse(timestamp);
                 if ((start - end) < (1000 * 60 * 10))//10分钟内
                 {
@@ -84,7 +84,7 @@ namespace GL.Common
         /// 获取时间戳
         /// </summary>
         /// <returns></returns>
-        public static long GetTimeStampNum()
+        public static long GetTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1999, 01, 01, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalMilliseconds);
