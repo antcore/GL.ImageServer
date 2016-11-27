@@ -41,18 +41,11 @@ namespace GL.ApiServer.Filter
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-
-            base.OnActionExecuting(actionContext);
-            return;
-
-
-
             if (SkipNoSign(actionContext))//是否该类标记为NoSign
             {
                 base.OnActionExecuting(actionContext);
                 return;
             }
-
             //获取Asp.Net对应的Request
             var request = ((HttpContextWrapper)actionContext.Request.Properties["MS_HttpContext"]).Request;
             NameValueCollection getCollection = request.QueryString;//此签名要求 key sign timestamp  均通过QueryString传递
