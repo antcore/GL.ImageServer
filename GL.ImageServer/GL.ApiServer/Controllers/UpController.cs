@@ -263,7 +263,7 @@ namespace GL.ApiServer.Controllers
         /// <param name="param"></param>
         /// <returns></returns>
         [Route("api/{appId}/base64up")]
-        public HttpResponseMessage base64(string appid, [FromBody]Base64UpdataModel param)
+        public HttpResponseMessage base64(string appId, [FromBody]Base64UpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();
 
@@ -289,7 +289,7 @@ namespace GL.ApiServer.Controllers
                             sFileSiffix = (string.IsNullOrEmpty(param.fileSiffix) ? "jpg" : param.fileSiffix),
                             iFileSize = ms.Length, //文件大小
 
-                            sAppId = appid,
+                            sAppId = appId,
                             dCreateTime = DateTime.Now
                         };
                         // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
