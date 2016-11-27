@@ -282,11 +282,11 @@ namespace GL.ApiServer.Controllers
         public HttpResponseMessage base64([FromBody]Base64UpdataModel param)
         {
             HelperResultMsg result = new HelperResultMsg();
-            if (string.IsNullOrEmpty(param.appid) || param.appid.Length != 32)
+            if (string.IsNullOrEmpty(param.appid) || param.appid.Length != 16)
             {
                 result.message = "不合法的 appid";
             }
-            else if (!string.IsNullOrEmpty(param.base64str))
+            else if (string.IsNullOrEmpty(param.base64str))
             {
                 result.message = "图片base64字符串未上传";
             }
@@ -333,6 +333,21 @@ namespace GL.ApiServer.Controllers
                         resultString.Add(string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath));
 
                         ms.Close();
+
+                        result.success = true;
+                        result.message = "上传成功";
+                        result.resultInfo = new List<string>() { string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath) };
+                    }
+                    if (listFiles.Count > 0)
+                    {
+                        //保存至数据库
+                        var msg = new ImageService().InsertAll(listFiles);
+                        if (msg.success)
+                        {
+                            result.success = true;
+                            result.message = "上传成功";
+                            result.resultInfo = resultString;
+                        }
                     }
                 }
                 catch (Exception ex)
