@@ -17,8 +17,11 @@ namespace GL.ApiServer.Controllers
     /// <summary>
     /// 文件上传 处理 API
     /// </summary>
+
+    [SignOnlyUri]
+
     public class UpController : ApiController
-    { 
+    {
 
         public class UpdataModel
         {
@@ -36,7 +39,6 @@ namespace GL.ApiServer.Controllers
         /// <returns>获取图片访问路径</returns>
 
         [Route("api/up/web/{appId}/{dirId}")]
-        [NoSignImageWebUp]
         public async Task<HttpResponseMessage> web(string appId, string dirId)
         {
             HelperResultMsg result = new HelperResultMsg();
@@ -346,5 +348,9 @@ namespace GL.ApiServer.Controllers
         }
 
         #endregion base64 上传图片
+
+
+
+
     }
 }

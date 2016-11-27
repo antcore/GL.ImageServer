@@ -22,7 +22,6 @@ namespace GL.ApiServer.Filter
     /// </summary>
     public abstract class AbsBaseAuthenticationAttribute : ActionFilterAttribute
     {
-
         /// <summary>
         /// 判断类和方法头上的特性是否要进行Action拦截
         /// </summary>
@@ -33,14 +32,21 @@ namespace GL.ApiServer.Filter
             return actionContext.ActionDescriptor.GetCustomAttributes<NoSignAttribute>().Any()
                 || actionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<NoSignAttribute>().Any();
         }
-        private static bool SkipNoSignImageWeb(HttpActionContext actionContext)
+
+        private static bool SkipSignOnlyUri(HttpActionContext actionContext)
         {
-            return actionContext.ActionDescriptor.GetCustomAttributes<NoSignImageWebUpAttribute>().Any()
-                || actionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<NoSignImageWebUpAttribute>().Any();
+            return actionContext.ActionDescriptor.GetCustomAttributes<SignOnlyUriAttribute>().Any()
+                || actionContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes<SignOnlyUriAttribute>().Any();
         }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
+
+            base.OnActionExecuting(actionContext);
+            return;
+
+
+
             if (SkipNoSign(actionContext))//是否该类标记为NoSign
             {
                 base.OnActionExecuting(actionContext);
@@ -63,43 +69,35 @@ namespace GL.ApiServer.Filter
                    )
                 {
                     //获取partner对应的key
-                    //这里暂时只做了合作key校验，不做访问权限校验，如有需要，此处可进行调整，建议RBAC
+                    //这里暂时只做了合作key校验，不做访问权限校验，如有需要，此处可进行调整 
                     string partnerSecret = this.GetPartnerSecret(partnerkey);
                     if (!string.IsNullOrWhiteSpace(partnerSecret))
                     {
                         NameValueCollection postCollection = null;
-                        switch (request.RequestType.ToUpper())
+                        if (!SkipSignOnlyUri(actionContext))//判断 请求包含地址是否  仅验证Url  跳过内容加入签名验证
                         {
-                            case "GET":
-                            case "DELETE":
-
-                                break;
-                            //只是为了同时显示restful四种方式才有这部分无意义代码
-                            //实际该以哪种方式进行请求应遵循restful标准
-                            case "POST":
-                            case "PUT":
-                                postCollection = request.Form;//post的数据必须通过application/x-www-form-urlencoded方式传递
-                                break;
-                            default:
-                                throw new NotImplementedException();
+                            switch (request.RequestType.ToUpper())
+                            {
+                                case "GET":
+                                case "DELETE":
+                                    break;
+                                case "POST":
+                                case "PUT":
+                                    postCollection = request.Form;//post的数据必须通过application/x-www-form-urlencoded 方式传递
+                                    break;
+                                default:
+                                    throw new NotImplementedException();
+                            }
                         }
-                        //根据请求数据获取MD5签名
-                        if (SkipNoSignImageWeb(actionContext))
-                        {
-                            postCollection = null;
-                        }
-
                         string vSign = HelperSecurity.GetSecuritySign(partnerSecret, timestamp, postCollection);
+
                         if (string.Equals(sign, vSign, StringComparison.OrdinalIgnoreCase))
                         {
                             //验证通过,执行基类方法
                             base.OnActionExecuting(actionContext);
                             return;
                         }
-                        else
-                        {
 
-                        }
                     }
                 }
             }
@@ -112,5 +110,7 @@ namespace GL.ApiServer.Filter
         /// <param name="partnerKey"></param>
         /// <returns></returns>
         protected abstract string GetPartnerSecret(string partnerKey);
+
+
     }
 }

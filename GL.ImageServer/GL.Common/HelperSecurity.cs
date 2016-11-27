@@ -69,14 +69,10 @@ namespace GL.Common
         public static bool VilidateTimestamp(string timestamp)
         {
             bool flag = false;
-            if (!string.IsNullOrEmpty(timestamp))
+            if (!string.IsNullOrEmpty(timestamp) && Regex.IsMatch(timestamp, "^[0-9]+$"))
             {
-                long end = 0;
-                if (Regex.IsMatch(timestamp, "^[0-9]+$"))
-                {
-                    end = long.Parse(timestamp);
-                }
                 long start = GetTimeStampNum();
+                long end = long.Parse(timestamp);
                 if ((start - end) < (1000 * 60 * 10))//10分钟内
                 {
                     flag = true;
@@ -93,5 +89,7 @@ namespace GL.Common
             TimeSpan ts = DateTime.UtcNow - new DateTime(1999, 01, 01, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalMilliseconds);
         }
+
+
     }
 }
