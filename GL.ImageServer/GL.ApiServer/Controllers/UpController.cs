@@ -19,7 +19,6 @@ namespace GL.ApiServer.Controllers
     /// </summary>
 
     [SignOnlyUri]
-
     public class UpController : ApiController
     {
 
