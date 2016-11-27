@@ -122,7 +122,7 @@
     <Content Include="Content\html5Upload\index.html" />
     <Content Include="Content\html5Upload\res\%24.zy.img.up.min.js" />
     <Content Include="Content\html5Upload\res\css\zyUpload.css" />
-    <Content Include="Content\html5Upload\res\css\%24.zy.img.up.min.css" />
+    <Content Include="Content\html5Upload\res\%24.zy.img.up.min.css" />
     <Content Include="Content\html5Upload\res\images\add_img.png" />
     <Content Include="Content\html5Upload\res\images\bg.png" />
     <Content Include="Content\html5Upload\res\images\delete_blue.png" />
