@@ -1,0 +1,7 @@
+日期     种类    信息    来源
+18:14:12 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/28 GL.Common.HelperNLog.Error
+-------------------------------
+18:28:41 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/28 GL.Common.HelperNLog.Error
+-------------------------------
+18:37:46 Error 读取数据库图片服务器-配置错误-已读取文件web.config 配置2016/11/28 GL.Common.HelperNLog.Error
+-------------------------------

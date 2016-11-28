@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201606260102221_updata_app_author.Designer.cs">
       <DependentUpon>201606260102221_updata_app_author.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611280941283_UpdateImageAddAttribute.cs" />
+    <Compile Include="Migrations\201611280941283_UpdateImageAddAttribute.Designer.cs">
+      <DependentUpon>201611280941283_UpdateImageAddAttribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GL_APP_Authorized.cs" />
     <Compile Include="Models\GL_CloudSetting.cs" />
@@ -114,6 +118,12 @@
     <EmbeddedResource Include="Migrations\201606260102221_updata_app_author.resx">
       <DependentUpon>201606260102221_updata_app_author.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611280941283_UpdateImageAddAttribute.resx">
+      <DependentUpon>201611280941283_UpdateImageAddAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EF_COMMEND.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

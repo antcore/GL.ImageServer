@@ -14,6 +14,10 @@ using System.Web.Http;
 
 namespace GL.ApiServer.Controllers
 {
+
+
+
+
     /// <summary>
     /// 文件上传 处理 API
     /// </summary>
@@ -21,6 +25,12 @@ namespace GL.ApiServer.Controllers
     [SignOnlyUri]
     public class UpController : ApiController
     {
+
+        class ImagePath
+        {
+            public string Virtual_Dir { get; set; }
+            public string Option_Dir { get; set; }
+        }
 
         #region web 表单[multipart/form-data]提交文件
 
@@ -43,7 +53,7 @@ namespace GL.ApiServer.Controllers
                 GL_Images img = null;
                 List<GL_Images> listFiles = new List<GL_Images>();
                 //返回客户端信息
-                List<string> resultString = new List<string>();
+                List<ImagePath> ResultPath = new List<ImagePath>();
                 string filenames;
                 Stream ms;
                 byte[] data;
@@ -87,7 +97,10 @@ namespace GL.ApiServer.Controllers
                                     dCreateTime = DateTime.Now
                                 };
                                 // 盘符或者服务网站根目录 + 存储文件夹 + 年月动态文件夹
-                                img.sFilePath = string.Format(@"{0}/{1}/{2}", ServerSetting.SaveDisc, ServerSetting.ServerPath, img.dCreateTime.ToString("yyyyMM"));
+                                img.sFilePath = string.Format(@"{0}/{1}/{2}",
+                                    ServerSetting.SaveDisc,
+                                    ServerSetting.ServerPath,
+                                    img.dCreateTime.ToString("yyyyMMdd"));
                                 //Write File
 
                                 //判断文件路径
@@ -104,12 +117,21 @@ namespace GL.ApiServer.Controllers
                                 img.sUriDomain = ServerSetting.sServerUriDomain;
                                 img.sUriPath = string.Format(@"/api/down/{0}.{1}", img.sId, img.sFileSiffix);
 
-                                //img.
+                                img.sVirtual_DirectoryPath = string.Format(@"/{0}/{1}/{2}.{3}",
+                                    ServerSetting.sVirtual_Directory,
+                                    img.dCreateTime.ToString("yyyyMMdd"),
+                                    img.sId,
+                                    img.sFileSiffix);
+
 
                                 listFiles.Add(img);
 
-                                //获取文件请求路径
-                                resultString.Add(string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath));
+                                //获取文件请求路径 
+                                ResultPath.Add(new ImagePath
+                                {
+                                    Option_Dir = string.Format(@"{0}{1}", img.sUriDomain, img.sUriPath),
+                                    Virtual_Dir = string.Format(@"{0}{1}", img.sUriDomain, img.sVirtual_DirectoryPath)
+                                });
                             }
                         }
                     }
@@ -121,7 +143,7 @@ namespace GL.ApiServer.Controllers
                         {
                             result.success = true;
                             result.message = "上传成功";
-                            result.resultInfo = resultString;
+                            result.resultInfo = ResultPath;
                         }
                     }
                 }
@@ -176,7 +198,10 @@ namespace GL.ApiServer.Controllers
                     string[] MEDIA_IDS = media_ids.Split(',');
                     foreach (var media_id in MEDIA_IDS)
                     {
-                        wechatUri = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", param.wechat_token, media_id);
+                        wechatUri = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}",
+                            param.wechat_token,
+                            media_id);
+
                         webRequest = (HttpWebRequest)WebRequest.Create(wechatUri);
                         webRequest.ProtocolVersion = HttpVersion.Version10;
                         webRequest.Timeout = 30000;

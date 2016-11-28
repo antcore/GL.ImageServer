@@ -1,0 +1,18 @@
+﻿
+
+
+
+			 
+
+生成迁移文件：
+
+Add-Migration UpdateInfoName
+
+更新到数据库：
+Update-Database
+
+更新到数据库：
+
+Update-Database -Verbose
+
+Update-Database -Force

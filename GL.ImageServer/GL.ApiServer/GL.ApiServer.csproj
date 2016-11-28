@@ -118,7 +118,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="1-db-design\CloudServer.API.pdb" />
     <Content Include="Content\AmazeUI-2.7.0\css\admin.css" />
     <Content Include="Content\AmazeUI-2.7.0\css\amazeui.css" />
     <Content Include="Content\AmazeUI-2.7.0\css\amazeui.flat.css" />
@@ -178,7 +177,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="1-db-design\CloudServer.API.pdm" />
     <Content Include="Views\User\Reg.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Content\AmazeUI-2.7.0\fonts\fontawesome-webfont.eot" />
