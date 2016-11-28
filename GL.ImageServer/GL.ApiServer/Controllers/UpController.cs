@@ -104,6 +104,8 @@ namespace GL.ApiServer.Controllers
                                 img.sUriDomain = ServerSetting.sServerUriDomain;
                                 img.sUriPath = string.Format(@"/api/down/{0}.{1}", img.sId, img.sFileSiffix);
 
+                                //img.
+
                                 listFiles.Add(img);
 
                                 //获取文件请求路径

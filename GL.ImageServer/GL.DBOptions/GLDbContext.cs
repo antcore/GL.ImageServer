@@ -6,7 +6,7 @@ namespace GL.DBOptions
     public partial class GLDbContext : DbContext
     {
         public GLDbContext()
-            : base("name=GL_ImageServer")
+            : base("name=DbContext_ImageServer")
         {
         }
 
